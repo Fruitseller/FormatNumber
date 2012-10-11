@@ -10,7 +10,7 @@ int main()
 	FormatNumber *Formatter = new FormatNumber();
 	cin >> inputstring;
 	cout << Formatter->FormatGlobalNumberToLocalNumber(inputstring);
-	cout << "Hallo";
+	cout << "useless cout";
 	delete Formatter;
 
 	return 0;

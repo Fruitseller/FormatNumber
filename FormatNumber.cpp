@@ -6,22 +6,6 @@
 
 using namespace std;
 
-/*
-public:
-	const string& getAreaCode() const;
-	void setAreaCode(const string& areaCode);
-	const string& getCountryCode() const;
-	void setCountryCode(const string& countryCode);
-	const string& getGlobalFormat() const;
-	void setGlobalFormat(const string& globalFormat);
-	const string& getLocalFormat() const;
-	void setLocalFormat(const string& localFormat);
-	const string& getNumber() const;
-	void setNumber(const string& number);
-
-private:
-*/
-
 	string globalFormat;
 
 bool FormatNumber::IsInputNotEmptyAndDigit(string const &input)
@@ -82,48 +66,3 @@ string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 		return "Error: invalid input!!\n";
 	}
 }
-
-
-	/*
-	const string& FormatNumber::getAreaCode() const
-	{
-		return areaCode;
-	}
-
-	void FormatNumber::setAreaCode(const string& areaCode) {
-		this->areaCode = areaCode;
-	}
-
-	const string& FormatNumber::getCountryCode() const {
-		return countryCode;
-	}
-
-	void FormatNumber::setCountryCode(const string& countryCode) {
-		this->countryCode = countryCode;
-	}
-
-	const string& FormatNumber::getGlobalFormat() const {
-		return globalFormat;
-	}
-
-	void FormatNumber::setGlobalFormat(const string& globalFormat) {
-		this->globalFormat = globalFormat;
-	}
-
-	const string& FormatNumber::getLocalFormat() const {
-		return localFormat;
-	}
-
-	void FormatNumber::setLocalFormat(const string& localFormat) {
-		this->localFormat = localFormat;
-	}
-
-	const string& FormatNumber::getNumber() const {
-		return number;
-	}
-
-	void FormatNumber::setNumber(const string& number) {
-		this->number = number;
-	}
-	*/
-

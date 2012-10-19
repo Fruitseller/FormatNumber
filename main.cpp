@@ -14,7 +14,6 @@ int main()
 	cout << "Beachten Sie bitte, dass nur korrekte internationale Rufnummern eingegeben werden dürfen." << endl;
 	cout << "Bei fehlerhafter Benutzung kann ein korrekter Umwandlungsrozess nicht gewähleistet werden." << endl;
 	cout << "\nIhre internationale Rufnummer: ";
-	cout << "Hallo Welt";
 	cin >> inputString;
 	outputString = Formatter->FormatGlobalNumberToLocalNumber(inputString);
 	cout << endl;

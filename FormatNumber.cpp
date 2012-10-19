@@ -6,8 +6,6 @@
 
 using namespace std;
 
-	string globalFormat;
-
 bool FormatNumber::IsInputNotEmptyAndDigit(string const &input)
 {
 	if (!(input.empty()))
@@ -18,10 +16,49 @@ bool FormatNumber::IsInputNotEmptyAndDigit(string const &input)
 				return false;
 		}
 		return true;
-	} else
+	}
+	else
 	{
 		return false;
 	}
+}
+
+string FormatNumber::GetCountryCodeFromGlobalNumber(string input)
+{
+	string countryCode;
+
+	for (int i = 0; i < 4; i++)
+	{
+		countryCode += input[i];
+	}
+
+	return countryCode;
+}
+
+string FormatNumber::GetAreaCodeFromGlobalNumber(string input)
+{
+	string areaCode;
+
+	for (unsigned int i = 4; i < (input.length() - 7); i++)
+	{
+		areaCode += input[i];
+	}
+
+	areaCode = "0" + areaCode;
+
+	return areaCode;
+}
+
+string FormatNumber::GetNumberFromGlobalNumber(string input)
+{
+	string number;
+
+	for (unsigned int i = (input.length() - 7); i < input.length(); i++)
+	{
+		number += input[i];
+	}
+
+	return number;
 }
 
 string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
@@ -34,29 +71,18 @@ string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 
 	if (IsInputNotEmptyAndDigit(input))
 	{
-		for (int i = 0; i < 4; i++)
-		{
-			countryCode += input[i];
-		}
 
-		cout << "\nCountrycode: " << countryCode << endl;
+		countryCode = GetCountryCodeFromGlobalNumber(input);
+		cout << endl << countryCode << endl;
 
-		for (int i = 4; i < (input.length() - 7); i++)
-		{
-			areaCode += input[i];
-		}
+		areaCode = GetAreaCodeFromGlobalNumber(input);
+		cout << areaCode << endl;
 
-		cout << "Areacode: " << areaCode << endl;
-
-		for (unsigned int i = (input.length() - 7); i <= input.length(); i++)
-		{
-			number += input[i];
-		}
-
-		cout << "Nummer: " << number << endl;
+		number = GetNumberFromGlobalNumber(input);
+		cout << number << endl;
 		cout << endl;
 
-		localFormat = "0" + areaCode + number;
+		localFormat = areaCode + number;
 
 
 		return localFormat;
@@ -66,3 +92,4 @@ string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 		return "Error: invalid input!!\n";
 	}
 }
+

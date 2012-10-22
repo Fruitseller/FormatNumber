@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
 #include <list>
 #include <cppunit/TestCase.h>
 #include <cppunit/TestFixture.h>

@@ -8,8 +8,13 @@ using namespace std;
 class FormatNumber
 {
 public:
+	bool IsInputNotEmpty(string input);
+	bool HasInputOnlyDigit(string input);
+	bool HasInputValidLength(string input);
+	bool ValidateInputOnCorrectness(string input);
+
 	// Returns true if the given string input is NOT empty and filled with only digits
-	bool IsInputNotEmptyAndDigit(string const &input);
+	bool IsInputNotEmptyAndDigit(string input);
 	// Returns four digit long string that is created from the given string
 	string GetCountryCodeFromGlobalNumber(string input);
 	// Returns variable string which is depending on the length of the given string
@@ -21,5 +26,4 @@ public:
 };
 
 #endif
-
 

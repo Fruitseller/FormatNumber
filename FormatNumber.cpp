@@ -6,7 +6,64 @@
 
 using namespace std;
 
-bool FormatNumber::IsInputNotEmptyAndDigit(string const &input)
+//############################################################
+// TODO
+// Delete the debug cout!!!
+//############################################################
+
+bool FormatNumber::IsInputNotEmpty(string input)
+{
+	if (input.empty())
+	{
+		return false;
+	}
+	else
+	{
+		cout << "Input is not empty\n";
+		return true;
+	}
+}
+
+bool FormatNumber::HasInputOnlyDigit(string input)
+{
+	for (unsigned int i = 0; i < input.length(); ++i)
+	{
+		if (!isdigit(input[i]))
+			return false;
+	}
+	cout << "Input has only digit\n";
+	return true;
+}
+
+bool FormatNumber::HasInputValidLength(string input)
+{
+	if (input.length() < 13 or input.length() > 15)
+	{
+		cout << "Something is wrong with the length\n";
+		return false;
+	}
+	else
+	{
+		cout << "Input has valid length\n";
+		return true;
+	}
+}
+
+bool FormatNumber::ValidateInputOnCorrectness(string input)
+{
+	if (IsInputNotEmpty(input) and HasInputOnlyDigit(input) and HasInputValidLength(input))
+	{
+		cout << "Validate OK";
+		return true;
+	}
+	else
+	{
+		cout << "NOT OK";
+		return false;
+	}
+}
+
+bool FormatNumber::IsInputNotEmptyAndDigit(string input)
 {
 	if (!(input.empty()))
 	{
@@ -69,17 +126,18 @@ string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 	string areaCode;
 	string localFormat;
 
-	if (IsInputNotEmptyAndDigit(input))
+	//if (IsInputNotEmptyAndDigit(input))
+	if (ValidateInputOnCorrectness(input))
 	{
 
 		countryCode = GetCountryCodeFromGlobalNumber(input);
-		cout << endl << countryCode << endl;
+		cout << endl << "Ländercode:  " << countryCode << endl;
 
 		areaCode = GetAreaCodeFromGlobalNumber(input);
-		cout << areaCode << endl;
+		cout << "Ortsvorwahl: " << areaCode << endl;
 
 		number = GetNumberFromGlobalNumber(input);
-		cout << number << endl;
+		cout << "Rufnummer:   " << number << endl;
 		cout << endl;
 
 		localFormat = areaCode + number;
@@ -92,4 +150,3 @@ string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 		return "Error: invalid input!!\n";
 	}
 }
-

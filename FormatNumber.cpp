@@ -3,102 +3,55 @@
 #include <algorithm>
 
 #include "FormatNumber.h"
+#include "ValidateNumber.h"
 
 using namespace std;
 
-//############################################################
-// TODO
-// Delete the debug cout!!!
-//############################################################
+string returnValue = "";
 
-bool FormatNumber::IsInputNotEmpty(string input)
+string FormatNumber::ReplaceICCToNCC(string input)
 {
-	if (input.empty())
-	{
-		return false;
-	}
-	else
-	{
-		cout << "Input is not empty\n";
-		return true;
-	}
+	returnValue = input;
+
+	returnValue.erase(0, 1);
+	returnValue.insert(0, "00");
+	return returnValue;
 }
 
-bool FormatNumber::HasInputOnlyDigit(string input)
-{
-	for (unsigned int i = 0; i < input.length(); ++i)
-	{
-		if (!isdigit(input[i]))
-			return false;
-	}
-	cout << "Input has only digit\n";
-	return true;
-}
-
-bool FormatNumber::HasInputValidLength(string input)
-{
-	if (input.length() < 13 or input.length() > 15)
-	{
-		cout << "Something is wrong with the length\n";
-		return false;
-	}
-	else
-	{
-		cout << "Input has valid length\n";
-		return true;
-	}
-}
-
-bool FormatNumber::ValidateInputOnCorrectness(string input)
-{
-	if (IsInputNotEmpty(input) and HasInputOnlyDigit(input) and HasInputValidLength(input))
-	{
-		cout << "Validate OK";
-		return true;
-	}
-	else
-	{
-		cout << "NOT OK";
-		return false;
-	}
-}
-
-bool FormatNumber::IsInputNotEmptyAndDigit(string input)
-{
-	if (!(input.empty()))
-	{
-		for (unsigned int i = 0; i < input.length(); ++i)
-		{
-			if (!isdigit(input[i]))
-				return false;
-		}
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
 
 string FormatNumber::GetCountryCodeFromGlobalNumber(string input)
 {
 	string countryCode;
+	returnValue = input;
+
+	if (returnValue[0] == '+')
+	{
+		returnValue = ReplaceICCToNCC(returnValue);
+	}
 
 	for (int i = 0; i < 4; i++)
 	{
-		countryCode += input[i];
+		countryCode += returnValue[i];
 	}
 
 	return countryCode;
 }
 
+
 string FormatNumber::GetAreaCodeFromGlobalNumber(string input)
 {
 	string areaCode;
+	unsigned int i = 4;
+	returnValue = input;
 
-	for (unsigned int i = 4; i < (input.length() - 7); i++)
+	if (returnValue[0] == '+')
 	{
-		areaCode += input[i];
+		i = 3;
+	}
+
+	for (; i < (returnValue.length() - 7); i++)
+	{
+		areaCode += returnValue[i];
 	}
 
 	areaCode = "0" + areaCode;
@@ -106,17 +59,20 @@ string FormatNumber::GetAreaCodeFromGlobalNumber(string input)
 	return areaCode;
 }
 
+
 string FormatNumber::GetNumberFromGlobalNumber(string input)
 {
 	string number;
+	returnValue = input;
 
-	for (unsigned int i = (input.length() - 7); i < input.length(); i++)
+	for (unsigned int i = (returnValue.length() - 7); i < returnValue.length(); i++)
 	{
-		number += input[i];
+		number += returnValue[i];
 	}
 
 	return number;
 }
+
 
 string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 {
@@ -126,24 +82,24 @@ string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 	string areaCode;
 	string localFormat;
 
-	//if (IsInputNotEmptyAndDigit(input))
-	if (ValidateInputOnCorrectness(input))
+	returnValue = input;
+
+	if (ValidateNumber::ValidateInputOnCorrectness(returnValue))
 	{
 
-		countryCode = GetCountryCodeFromGlobalNumber(input);
+		countryCode = GetCountryCodeFromGlobalNumber(returnValue);
 		cout << endl << "Ländercode:  " << countryCode << endl;
 
-		areaCode = GetAreaCodeFromGlobalNumber(input);
+		areaCode = GetAreaCodeFromGlobalNumber(returnValue);
 		cout << "Ortsvorwahl: " << areaCode << endl;
 
-		number = GetNumberFromGlobalNumber(input);
+		number = GetNumberFromGlobalNumber(returnValue);
 		cout << "Rufnummer:   " << number << endl;
 		cout << endl;
 
-		localFormat = areaCode + number;
+		returnValue = areaCode + number;
 
-
-		return localFormat;
+		return returnValue;
 	}
 	else
 	{

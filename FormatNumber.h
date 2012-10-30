@@ -1,6 +1,9 @@
 #ifndef FORMATNUMBER_H
 #define FORMATNUMBER_H
 
+#define ICC InternationalCountryCode
+#define NCC NationalCountryCode
+
 #include <string>
 
 using namespace std;
@@ -8,13 +11,9 @@ using namespace std;
 class FormatNumber
 {
 public:
-	bool IsInputNotEmpty(string input);
-	bool HasInputOnlyDigit(string input);
-	bool HasInputValidLength(string input);
-	bool ValidateInputOnCorrectness(string input);
+	// Replace "+XX" to "00XX" so other methods work normally
+	string ReplaceICCToNCC(string input);
 
-	// Returns true if the given string input is NOT empty and filled with only digits
-	bool IsInputNotEmptyAndDigit(string input);
 	// Returns four digit long string that is created from the given string
 	string GetCountryCodeFromGlobalNumber(string input);
 	// Returns variable string which is depending on the length of the given string
@@ -23,6 +22,19 @@ public:
 	string GetNumberFromGlobalNumber(string input);
 	// Returns a national phonenumber string created from the given international phonenumber string
 	string FormatGlobalNumberToLocalNumber(string input);
+
+	struct phoneNumber
+	{
+		string globalNumber;
+		string localNumber;
+		string countryCode;
+		string areaCode;
+		string number;
+	};
+
+private:
+	// Is needed because of ReplaceICCToNCC
+	string returnValue;
 };
 
 #endif

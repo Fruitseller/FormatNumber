@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "FormatNumber.h"
+#include "ValidateNumber.h"
 
 
 string inputString, outputString;
@@ -19,9 +20,19 @@ int main()
 
 	cout << "\nIhre internationale Rufnummer: ";
 	cin >> inputString;
+
+	while (!(ValidateNumber::ValidateInputOnCorrectness(inputString)))
+	{
+		cout << "Falsche Eingabe! Bitte wiederholen.";
+		cout << "\nIhre internationale Rufnummer: ";
+		cin >> inputString;
+	}
+
 	outputString = Formatter->FormatGlobalNumberToLocalNumber(inputString);
+
 	cout << endl;
 	cout << outputString;
+
 	delete Formatter;
 
 	return 0;

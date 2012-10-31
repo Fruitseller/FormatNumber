@@ -7,7 +7,7 @@
 #include "PhoneNumber.h"
 
 
-string inputString, outputString;
+string inputString;
 int main()
 {
 	FormatNumber* Formatter = new FormatNumber();

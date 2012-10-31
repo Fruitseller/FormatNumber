@@ -77,32 +77,11 @@ string FormatNumber::GetNumberFromGlobalNumber(string input)
 
 PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 {
-
-	string number;
-	string countryCode;
-	string areaCode;
-	string localFormat;
 	PhoneNumber* PhoneNumberObj = new PhoneNumber();
-
 	returnValue = input;
 
 	if (ValidateNumber::ValidateInputOnCorrectness(returnValue))
 	{
-
-		/*
-		countryCode = GetCountryCodeFromGlobalNumber(returnValue);
-		cout << endl << "Ländercode:  " << countryCode << endl;
-
-		areaCode = GetAreaCodeFromGlobalNumber(returnValue);
-		cout << "Ortsvorwahl: " << areaCode << endl;
-
-		number = GetNumberFromGlobalNumber(returnValue);
-		cout << "Rufnummer:   " << number << endl;
-		cout << endl;
-
-		returnValue = areaCode + number;
-		*/
-
 		PhoneNumberObj->SetGlobalNumber(returnValue);
 
 		PhoneNumberObj->SetCountryCode(GetCountryCodeFromGlobalNumber(returnValue));

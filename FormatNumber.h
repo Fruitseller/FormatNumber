@@ -21,7 +21,7 @@ public:
 	string GetAreaCodeFromGlobalNumber(string input);
 	// Returns seven digit long string that is created from the last seven digits of the given string
 	string GetNumberFromGlobalNumber(string input);
-	// Returns a national phonenumber string created from the given international phonenumber string
+	// Returns a PhoneNumber object created from the given international phonenumber string
 	PhoneNumber* FormatGlobalNumberToLocalNumber(string input);
 
 private:

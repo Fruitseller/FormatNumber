@@ -15,6 +15,7 @@
 
 #include "FormatNumber.h"
 #include "ValidateNumber.h"
+#include "PhoneNumber.h"
 
 using namespace std;
 using namespace CppUnit;
@@ -25,6 +26,7 @@ class FormatNumberTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(TestHasInputOnlyDigitWithDigitsAndLetters);
 	CPPUNIT_TEST(TestIsInputNotEmptyAndDigitWithEmptyString);
 	CPPUNIT_TEST(TestHasInputValidLengthWithMultipleInputs);
+	CPPUNIT_TEST(TestPhoneNumberWithValidNumbers);
 	CPPUNIT_TEST(TestFormatGlobalNumberToLocalNumberWithValidNumber);
 	CPPUNIT_TEST(TestFormatGlobalNumberToLocalNumberWithUnvalidNumber);
 	CPPUNIT_TEST(TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber);
@@ -40,6 +42,7 @@ protected:
 	void TestHasInputOnlyDigitWithDigitsAndLetters();
 	void TestIsInputNotEmptyAndDigitWithEmptyString();
 	void TestHasInputValidLengthWithMultipleInputs();
+	void TestPhoneNumberWithValidNumbers();
 	void TestFormatGlobalNumberToLocalNumberWithValidNumber();
 	void TestFormatGlobalNumberToLocalNumberWithUnvalidNumber();
 	void TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber();
@@ -59,11 +62,13 @@ void FormatNumberTest::setUp()
 	Formatter = new FormatNumber();
 }
 
+
 void FormatNumberTest::tearDown()
 {
 	delete TestPhoneNumber;
 	delete Formatter;
 }
+
 
 void FormatNumberTest::TestHasInputOnlyDigitWithDigitsAndLetters()
 {
@@ -82,13 +87,13 @@ void FormatNumberTest::TestHasInputOnlyDigitWithDigitsAndLetters()
 }
 
 
-
 void FormatNumberTest::TestIsInputNotEmptyAndDigitWithEmptyString()
 {
 	CPPUNIT_ASSERT(!(ValidateNumber::IsInputNotEmpty("")));
 	CPPUNIT_ASSERT(ValidateNumber::IsInputNotEmpty("32456"));
 	CPPUNIT_ASSERT(ValidateNumber::IsInputNotEmpty("+"));
 }
+
 
 void FormatNumberTest::TestHasInputValidLengthWithMultipleInputs()
 {
@@ -102,6 +107,23 @@ void FormatNumberTest::TestHasInputValidLengthWithMultipleInputs()
 	CPPUNIT_ASSERT(!(ValidateNumber::HasInputValidLength("0123456789ABCDEF")));
 	CPPUNIT_ASSERT(!(ValidateNumber::HasInputValidLength("+123456789ABCDEF")));
 }
+
+
+void FormatNumberTest::TestPhoneNumberWithValidNumbers()
+{
+	TestPhoneNumber->SetGlobalNumber("00492111234567");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetGlobalNumber() == "00492111234567");
+	TestPhoneNumber->SetLocalNumber("02111234567");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetLocalNumber() == "02111234567");
+	TestPhoneNumber->SetCountryCode("0049");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetCountryCode() == "0049");
+	TestPhoneNumber->SetAreaCode("0211");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetAreaCode() == "0211");
+	TestPhoneNumber->SetNumber("1234567");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetNumber() == "1234567");
+
+}
+
 
 void FormatNumberTest::TestFormatGlobalNumberToLocalNumberWithValidNumber()
 {
@@ -122,15 +144,9 @@ void FormatNumberTest::TestFormatGlobalNumberToLocalNumberWithValidNumber()
 
 void FormatNumberTest::TestFormatGlobalNumberToLocalNumberWithUnvalidNumber()
 {
-	/*
-	 * TODO
-	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("00492134g3g11234567");
-	CPPUNIT_ASSERT(Formatter->FormatGlobalNumberToLocalNumber("00492134g3g11234567").compare(NULL) == 0);
-	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("0049(0211)1234567");
-	CPPUNIT_ASSERT(incorrectLocalNumber.compare("Error: invalid input!!\n") == 0);
-	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("+49 (0211) 1234567");
-	CPPUNIT_ASSERT(incorrectLocalNumber.compare("Error: invalid input!!\n") == 0);
-	*/
+	CPPUNIT_ASSERT(Formatter->FormatGlobalNumberToLocalNumber("00492134g3g11234567") == NULL);
+	CPPUNIT_ASSERT(Formatter->FormatGlobalNumberToLocalNumber("0049(0211)1234567") == NULL);
+	CPPUNIT_ASSERT(Formatter->FormatGlobalNumberToLocalNumber("+49 (0211) 1234567") == NULL);
 }
 
 
@@ -145,6 +161,7 @@ void FormatNumberTest::TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber()
 	CPPUNIT_ASSERT(correctCountryCode.compare("0049") == 0);
 }
 
+
 void FormatNumberTest::TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber()
 {
 	string correctAreaCode;
@@ -158,6 +175,7 @@ void FormatNumberTest::TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber()
 	CPPUNIT_ASSERT(correctAreaCode.compare("030") == 0);
 }
 
+
 void FormatNumberTest::TestGetNumberFromGlobalNumberWithValidGlobalNumber()
 {
 	string correctNumber;
@@ -170,6 +188,7 @@ void FormatNumberTest::TestGetNumberFromGlobalNumberWithValidGlobalNumber()
 	correctNumber = Formatter->GetNumberFromGlobalNumber("+49307818820");
 	CPPUNIT_ASSERT(correctNumber.compare("7818820") == 0);
 }
+
 
 //---------------------------------------------------------------------------------------------------------------------
 

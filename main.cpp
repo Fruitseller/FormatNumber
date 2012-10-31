@@ -4,12 +4,14 @@
 
 #include "FormatNumber.h"
 #include "ValidateNumber.h"
+#include "PhoneNumber.h"
 
 
 string inputString, outputString;
 int main()
 {
-	FormatNumber *Formatter = new FormatNumber();
+	FormatNumber* Formatter = new FormatNumber();
+	PhoneNumber* MyPhoneNumber = new PhoneNumber();
 
 	cout << "##############################################################################################" << endl;
 	cout << "# Bitte geben Sie eine beliebige internationale Rufnummer ein und drücken Sie dann Enter.    #" << endl;
@@ -28,11 +30,15 @@ int main()
 		cin >> inputString;
 	}
 
-	outputString = Formatter->FormatGlobalNumberToLocalNumber(inputString);
+	MyPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber(inputString);
 
 	cout << endl;
-	cout << outputString;
+	cout << "Ländercode: " << MyPhoneNumber->GetCountryCode() << endl;
+	cout << "Vorwahl:    " << MyPhoneNumber->GetAreaCode() << endl;
+	cout << "Nummer:     " << MyPhoneNumber->GetNumber() << endl;
+	cout << endl << MyPhoneNumber->GetLocalNumber();
 
+	delete MyPhoneNumber;
 	delete Formatter;
 
 	return 0;

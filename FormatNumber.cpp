@@ -4,6 +4,7 @@
 
 #include "FormatNumber.h"
 #include "ValidateNumber.h"
+#include "PhoneNumber.h"
 
 using namespace std;
 
@@ -74,19 +75,21 @@ string FormatNumber::GetNumberFromGlobalNumber(string input)
 }
 
 
-string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
+PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 {
 
 	string number;
 	string countryCode;
 	string areaCode;
 	string localFormat;
+	PhoneNumber* PhoneNumberObj = new PhoneNumber();
 
 	returnValue = input;
 
 	if (ValidateNumber::ValidateInputOnCorrectness(returnValue))
 	{
 
+		/*
 		countryCode = GetCountryCodeFromGlobalNumber(returnValue);
 		cout << endl << "Ländercode:  " << countryCode << endl;
 
@@ -98,11 +101,22 @@ string FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 		cout << endl;
 
 		returnValue = areaCode + number;
+		*/
 
-		return returnValue;
+		PhoneNumberObj->SetGlobalNumber(returnValue);
+
+		PhoneNumberObj->SetCountryCode(GetCountryCodeFromGlobalNumber(returnValue));
+
+		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(returnValue));
+
+		PhoneNumberObj->SetNumber(GetNumberFromGlobalNumber(returnValue));
+
+		PhoneNumberObj->SetLocalNumber(GetAreaCodeFromGlobalNumber(returnValue) + GetNumberFromGlobalNumber(returnValue));
+
+		return PhoneNumberObj;
 	}
 	else
 	{
-		return "Error: invalid input!!\n";
+		return NULL;
 	}
 }

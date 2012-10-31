@@ -5,6 +5,7 @@
 #define NCC NationalCountryCode
 
 #include <string>
+#include "PhoneNumber.h"
 
 using namespace std;
 
@@ -21,16 +22,7 @@ public:
 	// Returns seven digit long string that is created from the last seven digits of the given string
 	string GetNumberFromGlobalNumber(string input);
 	// Returns a national phonenumber string created from the given international phonenumber string
-	string FormatGlobalNumberToLocalNumber(string input);
-
-	struct phoneNumber
-	{
-		string globalNumber;
-		string localNumber;
-		string countryCode;
-		string areaCode;
-		string number;
-	};
+	PhoneNumber* FormatGlobalNumberToLocalNumber(string input);
 
 private:
 	// Is needed because of ReplaceICCToNCC

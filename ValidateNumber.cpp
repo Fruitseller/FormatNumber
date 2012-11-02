@@ -13,24 +13,17 @@
 
 using namespace std;
 
-string ValidateNumber::returnValue = "";
-
-
 bool ValidateNumber::IsInputNotEmpty(string input)
 {
-	returnValue = input;
-
-	return !(returnValue.empty());
+	return !(input.empty());
 }
 
 
 bool ValidateNumber::HasInputOnlyDigits(string input)
 {
-	returnValue = input;
-
-	for (unsigned int i = 0; i < returnValue.length(); ++i)
+	for (unsigned int i = 0; i < input.length(); ++i)
 	{
-		if (!isdigit(returnValue[i]))
+		if (!isdigit(input[i]))
 			return false;
 	}
 	return true;
@@ -39,9 +32,7 @@ bool ValidateNumber::HasInputOnlyDigits(string input)
 
 bool ValidateNumber::HasInputValidLength(string input)
 {
-	returnValue = input;
-
-	if (returnValue.length() < 13 || returnValue.length() > 15)
+	if (input.length() < 13 || input.length() > 15)
 	{
 		return false;
 	}
@@ -51,16 +42,14 @@ bool ValidateNumber::HasInputValidLength(string input)
 
 bool ValidateNumber::ValidateInputOnCorrectness(string input)
 {
-	returnValue = input;
-
-	if (returnValue[0] == '+')
+	if (input[0] == '+')
 	{
 		FormatNumber* formatter = new FormatNumber();
-		returnValue = formatter->ReplaceICCToNCC(returnValue);
+		input = formatter->ReplaceICCToNCC(input);
 		delete formatter;
 	}
 
-	if (IsInputNotEmpty(returnValue) && HasInputOnlyDigits(returnValue) && HasInputValidLength(returnValue))
+	if (IsInputNotEmpty(input) && HasInputOnlyDigits(input) && HasInputValidLength(input))
 	{
 		return true;
 	}

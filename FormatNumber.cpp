@@ -83,13 +83,9 @@ PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 	if (ValidateNumber::ValidateInputOnCorrectness(returnValue))
 	{
 		PhoneNumberObj->SetGlobalNumber(returnValue);
-
 		PhoneNumberObj->SetCountryCode(GetCountryCodeFromGlobalNumber(returnValue));
-
 		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(returnValue));
-
 		PhoneNumberObj->SetNumber(GetNumberFromGlobalNumber(returnValue));
-
 		PhoneNumberObj->SetLocalNumber(GetAreaCodeFromGlobalNumber(returnValue) + GetNumberFromGlobalNumber(returnValue));
 
 		return PhoneNumberObj;

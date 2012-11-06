@@ -34,9 +34,6 @@ public:
 	// Returns a PhoneNumber object created from the given international phonenumber string
 	PhoneNumber* FormatGlobalNumberToLocalNumber(string input);
 
-private:
-	// Is needed because of ReplaceICCToNCC
-	string returnValue;
 };
 
 #endif

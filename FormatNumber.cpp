@@ -8,31 +8,27 @@
 
 using namespace std;
 
-string returnValue = "";
-
 string FormatNumber::ReplaceICCToNCC(string input)
 {
-	returnValue = input;
 
-	returnValue.erase(0, 1);
-	returnValue.insert(0, "00");
-	return returnValue;
+	input.erase(0, 1);
+	input.insert(0, "00");
+	return input;
 }
 
 
 string FormatNumber::GetCountryCodeFromGlobalNumber(string input)
 {
 	string countryCode;
-	returnValue = input;
 
-	if (returnValue[0] == '+')
+	if (input[0] == '+')
 	{
-		returnValue = ReplaceICCToNCC(returnValue);
+		input = ReplaceICCToNCC(input);
 	}
 
 	for (int i = 0; i < 4; i++)
 	{
-		countryCode += returnValue[i];
+		countryCode += input[i];
 	}
 
 	return countryCode;
@@ -43,16 +39,15 @@ string FormatNumber::GetAreaCodeFromGlobalNumber(string input)
 {
 	string areaCode;
 	unsigned int i = 4;
-	returnValue = input;
 
-	if (returnValue[0] == '+')
+	if (input[0] == '+')
 	{
 		i = 3;
 	}
 
-	for (; i < (returnValue.length() - 7); i++)
+	for (; i < (input.length() - 7); i++)
 	{
-		areaCode += returnValue[i];
+		areaCode += input[i];
 	}
 
 	areaCode = "0" + areaCode;
@@ -64,11 +59,10 @@ string FormatNumber::GetAreaCodeFromGlobalNumber(string input)
 string FormatNumber::GetNumberFromGlobalNumber(string input)
 {
 	string number;
-	returnValue = input;
 
-	for (unsigned int i = (returnValue.length() - 7); i < returnValue.length(); i++)
+	for (unsigned int i = (input.length() - 7); i < input.length(); i++)
 	{
-		number += returnValue[i];
+		number += input[i];
 	}
 
 	return number;
@@ -78,15 +72,14 @@ string FormatNumber::GetNumberFromGlobalNumber(string input)
 PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 {
 	PhoneNumber* PhoneNumberObj = new PhoneNumber();
-	returnValue = input;
 
-	if (ValidateNumber::ValidateInputOnCorrectness(returnValue))
+	if (ValidateNumber::ValidateInputOnCorrectness(input))
 	{
-		PhoneNumberObj->SetGlobalNumber(returnValue);
-		PhoneNumberObj->SetCountryCode(GetCountryCodeFromGlobalNumber(returnValue));
-		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(returnValue));
-		PhoneNumberObj->SetNumber(GetNumberFromGlobalNumber(returnValue));
-		PhoneNumberObj->SetLocalNumber(GetAreaCodeFromGlobalNumber(returnValue) + GetNumberFromGlobalNumber(returnValue));
+		PhoneNumberObj->SetGlobalNumber(input);
+		PhoneNumberObj->SetCountryCode(GetCountryCodeFromGlobalNumber(input));
+		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(input));
+		PhoneNumberObj->SetNumber(GetNumberFromGlobalNumber(input));
+		PhoneNumberObj->SetLocalNumber(GetAreaCodeFromGlobalNumber(input) + GetNumberFromGlobalNumber(input));
 
 		return PhoneNumberObj;
 	}

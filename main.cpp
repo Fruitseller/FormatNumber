@@ -38,6 +38,11 @@ int main()
 	cout << "Nummer:     " << MyPhoneNumber->GetNumber() << endl;
 	cout << endl << MyPhoneNumber->GetLocalNumber();
 
+	string lol;
+	cout << endl << endl;
+	lol = Formatter->GetCityNameFromGlobalNumber("lol");
+	cout << endl << endl;
+
 	delete MyPhoneNumber;
 	delete Formatter;
 

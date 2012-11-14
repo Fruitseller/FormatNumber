@@ -32,7 +32,7 @@ bool ValidateNumber::HasInputOnlyDigits(string input)
 
 bool ValidateNumber::HasInputValidLength(string input)
 {
-	if (input.length() < 13 || input.length() > 15)
+	if (input.length() < 13 || input.length() > 16)
 	{
 		return false;
 	}

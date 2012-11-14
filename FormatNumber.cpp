@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <fstream>
+#include <vector>
+
+#include <string.h>
 
 #include "FormatNumber.h"
 #include "ValidateNumber.h"
@@ -69,6 +73,73 @@ string FormatNumber::GetNumberFromGlobalNumber(string input)
 }
 
 
+string FormatNumber::GetCityNameFromGlobalNumber(string input)
+{
+	string cityName;
+	string lineTmpString("");
+	size_t pos;
+	string tmp("");
+	vector<string> tmpVectorOfLines;
+	unsigned int lineCounter(0);
+	vector< vector<string> > onkzList(5205, vector<string>(2));
+	/**
+	 * TODO
+	 * funktionalität einbauen
+	 * input = GetAreaCodeFromGlobalNumber(input);
+	 */
+	ifstream onkzFileStream("/home/bronkalla/workspace/FormatNumber/src/onkz.txt");
+
+	if (!onkzFileStream)
+	{
+		cerr << "LOL alles kaputt";
+	}
+
+
+	while (getline(onkzFileStream, lineTmpString))
+	{
+		if (lineTmpString.at(0) != '#')
+			tmpVectorOfLines.push_back(lineTmpString);
+	}
+	onkzFileStream.close();
+	cout << "vector[0]: " << tmpVectorOfLines[0] << endl;
+	cout << "vector.back(): " << tmpVectorOfLines.back() << endl;
+	cout << "vector[5204]: " << tmpVectorOfLines[5204] << endl;
+	cout << "size: " << tmpVectorOfLines.size() << endl;
+	cout << "\ndebug3";
+
+
+	for (; lineCounter < tmpVectorOfLines.size(); lineCounter++)
+	{
+
+		for (unsigned int i = 0; i < tmpVectorOfLines[lineCounter].length(); i++)
+		{
+			if (tmpVectorOfLines[lineCounter].at(i) == ';')
+			{
+				onkzList[lineCounter][0] = tmp;
+
+				pos = tmpVectorOfLines[lineCounter].find(';');
+				onkzList[lineCounter][1] = tmpVectorOfLines[lineCounter].substr(pos + 1);
+
+				i = tmpVectorOfLines[lineCounter].length();
+				tmp = "";
+
+				cout << "Vector[x][0]: " << onkzList[lineCounter][0] << endl;
+				cout << "Vector[x][1]: " << onkzList[lineCounter][1] << endl;
+			}
+			else
+			{
+				tmp += tmpVectorOfLines[lineCounter].at(i);
+			}
+		}
+	}
+
+
+	cout << "\ndebug4";
+
+	return cityName;
+}
+
+
 PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 {
 	PhoneNumber* PhoneNumberObj = new PhoneNumber();
@@ -80,6 +151,9 @@ PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(input));
 		PhoneNumberObj->SetNumber(GetNumberFromGlobalNumber(input));
 		PhoneNumberObj->SetLocalNumber(GetAreaCodeFromGlobalNumber(input) + GetNumberFromGlobalNumber(input));
+		/**
+		 * PhoneNumberObj->SetCityName(GetCityNameFromGlobalNumber(input));
+		 */
 
 		return PhoneNumberObj;
 	}

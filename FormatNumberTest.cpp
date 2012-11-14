@@ -32,6 +32,7 @@ class FormatNumberTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber);
 	CPPUNIT_TEST(TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber);
 	CPPUNIT_TEST(TestGetNumberFromGlobalNumberWithValidGlobalNumber);
+	CPPUNIT_TEST(TestGetCityNameFromGlobalNumber);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -48,6 +49,7 @@ protected:
 	void TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber();
 	void TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber();
 	void TestGetNumberFromGlobalNumberWithValidGlobalNumber();
+	void TestGetCityNameFromGlobalNumber();
 
 private:
 	PhoneNumber* TestPhoneNumber;
@@ -97,15 +99,15 @@ void FormatNumberTest::TestIsInputNotEmptyAndDigitWithEmptyString()
 
 void FormatNumberTest::TestHasInputValidLengthWithMultipleInputs()
 {
-	//Given numbers are between 13 and 15 characters long
+	//Given numbers are between 13 and 16 characters long
 	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABC"));
 	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABCD"));
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABCDE"));
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("+123456789ABCDE"));
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABCDEF"));
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("+123456789ABCDEF"));
 	//Given numbers are too short and too long. Expect fail
 	CPPUNIT_ASSERT(!(ValidateNumber::HasInputValidLength("012345")));
-	CPPUNIT_ASSERT(!(ValidateNumber::HasInputValidLength("0123456789ABCDEF")));
-	CPPUNIT_ASSERT(!(ValidateNumber::HasInputValidLength("+123456789ABCDEF")));
+	CPPUNIT_ASSERT(!(ValidateNumber::HasInputValidLength("0123456789ABCDEFG")));
+	CPPUNIT_ASSERT(!(ValidateNumber::HasInputValidLength("+123456789ABCDEFG")));
 }
 
 
@@ -121,6 +123,8 @@ void FormatNumberTest::TestPhoneNumberWithValidNumbers()
 	CPPUNIT_ASSERT(TestPhoneNumber->GetAreaCode() == "0211");
 	TestPhoneNumber->SetNumber("1234567");
 	CPPUNIT_ASSERT(TestPhoneNumber->GetNumber() == "1234567");
+	TestPhoneNumber->SetNumber("Kaarst");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetNumber() == "Kaarst");
 
 }
 
@@ -138,6 +142,11 @@ void FormatNumberTest::TestFormatGlobalNumberToLocalNumberWithValidNumber()
 	CPPUNIT_ASSERT(TestPhoneNumber->GetLocalNumber().compare("0307818820") == 0);
 	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("+4921311513029");
 	CPPUNIT_ASSERT(TestPhoneNumber->GetLocalNumber().compare("021311513029") == 0);
+
+	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("+49307818820");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetCityName().compare("Berlin") == 0);
+	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("004921311513029");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetCityName().compare("Kaarst") == 0);
 
 }
 
@@ -189,6 +198,17 @@ void FormatNumberTest::TestGetNumberFromGlobalNumberWithValidGlobalNumber()
 	CPPUNIT_ASSERT(correctNumber.compare("7818820") == 0);
 }
 
+
+void FormatNumberTest::TestGetCityNameFromGlobalNumber()
+{
+	string cityName;
+	cityName = Formatter->GetCityNameFromGlobalNumber("00492111234567");
+	CPPUNIT_ASSERT(cityName.compare("Düsseldorf") == 0);
+	cityName = Formatter->GetCityNameFromGlobalNumber("004921311513029");
+	CPPUNIT_ASSERT(cityName.compare("Kaarst") == 0);
+	cityName = Formatter->GetCityNameFromGlobalNumber("004921591513029");
+	CPPUNIT_ASSERT(cityName.compare("Meerbusch") == 0);
+}
 
 //---------------------------------------------------------------------------------------------------------------------
 

@@ -31,6 +31,14 @@ public:
 	// Returns seven digit long string that is created from the last seven digits of the given string
 	string GetNumberFromGlobalNumber(string input);
 
+	/**
+	 * Get areaCode, compare with onkz.txt and return city name based on areaCode
+	 *
+	 * @param String input e164 number
+	 * @return String with city name based on areaCode
+	 */
+	string GetCityNameFromGlobalNumber(string input);
+
 	// Returns a PhoneNumber object created from the given international phonenumber string
 	PhoneNumber* FormatGlobalNumberToLocalNumber(string input);
 

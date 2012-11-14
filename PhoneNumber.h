@@ -31,11 +31,15 @@ public:
 	string GetNumber();
 	void SetNumber(string number);
 
+	string GetCityName();
+	void SetCityName(string cityName);
+
 private:
 	string globalNumber;
 	string localNumber;
 	string countryCode;
 	string areaCode;
+	string cityName;
 	string number;
 };
 

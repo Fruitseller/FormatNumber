@@ -34,13 +34,14 @@ int main()
 
 	cout << endl;
 	cout << "Ländercode: " << MyPhoneNumber->GetCountryCode() << endl;
-	cout << "Vorwahl:    " << MyPhoneNumber->GetAreaCode() << endl;
+	cout << "Vorwahl:    " << MyPhoneNumber->GetAreaCode();
+	cout << "  Stadt: " << MyPhoneNumber->GetCityName() << endl;
 	cout << "Nummer:     " << MyPhoneNumber->GetNumber() << endl;
 	cout << endl << MyPhoneNumber->GetLocalNumber();
 
 	string lol;
 	cout << endl << endl;
-	lol = Formatter->GetCityNameFromGlobalNumber("lol");
+	//cout << Formatter->GetCityNameFromGlobalNumber("0211");
 	cout << endl << endl;
 
 	delete MyPhoneNumber;

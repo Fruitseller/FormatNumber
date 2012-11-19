@@ -2,12 +2,15 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+
+#include <map>
 #include <vector>
 
 #include <string.h>
 
 #include "FormatNumber.h"
 #include "ValidateNumber.h"
+#include "OnkzFileStream.h"
 #include "PhoneNumber.h"
 
 using namespace std;
@@ -75,37 +78,33 @@ string FormatNumber::GetNumberFromGlobalNumber(string input)
 
 string FormatNumber::GetCityNameFromGlobalNumber(string input)
 {
+	/*
 	string cityName;
-	string lineTmpString("");
+	string lineTmpString;
 	size_t pos;
-	string tmp("");
+	string tmp;
 	vector<string> tmpVectorOfLines;
 	unsigned int lineCounter(0);
-	vector< vector<string> > onkzList(5205, vector<string>(2));
-	/**
-	 * TODO
-	 * funktionalität einbauen
-	 * input = GetAreaCodeFromGlobalNumber(input);
-	 */
-	ifstream onkzFileStream("/home/bronkalla/workspace/FormatNumber/src/onkz.txt");
+	map<string, string> onkzMapList;
 
-	if (!onkzFileStream)
+	ifstream fileStream("/home/bronkalla/workspace/FormatNumber/src/onkz.txt");
+
+	if (!fileStream)
 	{
 		cerr << "LOL alles kaputt";
 	}
 
 
-	while (getline(onkzFileStream, lineTmpString))
+	while (getline(fileStream, lineTmpString))
 	{
 		if (lineTmpString.at(0) != '#')
 			tmpVectorOfLines.push_back(lineTmpString);
 	}
-	onkzFileStream.close();
+	fileStream.close();
 	cout << "vector[0]: " << tmpVectorOfLines[0] << endl;
 	cout << "vector.back(): " << tmpVectorOfLines.back() << endl;
 	cout << "vector[5204]: " << tmpVectorOfLines[5204] << endl;
 	cout << "size: " << tmpVectorOfLines.size() << endl;
-	cout << "\ndebug3";
 
 
 	for (; lineCounter < tmpVectorOfLines.size(); lineCounter++)
@@ -115,16 +114,17 @@ string FormatNumber::GetCityNameFromGlobalNumber(string input)
 		{
 			if (tmpVectorOfLines[lineCounter].at(i) == ';')
 			{
-				onkzList[lineCounter][0] = tmp;
 
+				tmp = "0" + tmp;
+				onkzMapList[tmp];
 				pos = tmpVectorOfLines[lineCounter].find(';');
-				onkzList[lineCounter][1] = tmpVectorOfLines[lineCounter].substr(pos + 1);
+
+				onkzMapList[tmp] = tmpVectorOfLines[lineCounter].substr(pos + 1);
 
 				i = tmpVectorOfLines[lineCounter].length();
-				tmp = "";
 
-				cout << "Vector[x][0]: " << onkzList[lineCounter][0] << endl;
-				cout << "Vector[x][1]: " << onkzList[lineCounter][1] << endl;
+				cout << "Map[" << tmp << "]: " << onkzMapList[tmp] << endl;
+				tmp = "";
 			}
 			else
 			{
@@ -132,9 +132,20 @@ string FormatNumber::GetCityNameFromGlobalNumber(string input)
 			}
 		}
 	}
+	input = GetAreaCodeFromGlobalNumber(input);
+	cityName = onkzMapList.find(input)->second;
+	cout << "02131: " << onkzMapList.find("02131")->second << endl;
 
+	*/
+	map<string, string> onkzMapList;
+	string cityName;
 
-	cout << "\ndebug4";
+	OnkzFileStream* onkzFileStream = new OnkzFileStream();
+
+	onkzMapList = onkzFileStream->CreateMapWithOnkz();
+	input = GetAreaCodeFromGlobalNumber(input);
+
+	cityName = onkzFileStream->FindCityNameFromMap(onkzMapList, input);
 
 	return cityName;
 }
@@ -151,9 +162,9 @@ PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(input));
 		PhoneNumberObj->SetNumber(GetNumberFromGlobalNumber(input));
 		PhoneNumberObj->SetLocalNumber(GetAreaCodeFromGlobalNumber(input) + GetNumberFromGlobalNumber(input));
-		/**
-		 * PhoneNumberObj->SetCityName(GetCityNameFromGlobalNumber(input));
-		 */
+
+		PhoneNumberObj->SetCityName(GetCityNameFromGlobalNumber(input));
+
 
 		return PhoneNumberObj;
 	}

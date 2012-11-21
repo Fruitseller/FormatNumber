@@ -20,9 +20,7 @@ class OnkzFileStream
 {
 
 public:
-	//ifstream InitializeFileStream();
-	map<string, string> GetMapFromStream(ifstream fileStream);
-	map<string, string> CreateMapWithOnkz();
+	map<string, string> GetMapFromStream();
 	string FindCityNameFromMap(map<string, string> onkzMapList, string areaCode);
 };
 

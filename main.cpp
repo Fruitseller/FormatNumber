@@ -3,8 +3,6 @@
 #include <algorithm>
 
 #include "FormatNumber.h"
-#include "ValidateNumber.h"
-#include "PhoneNumber.h"
 
 
 string inputString;
@@ -17,7 +15,7 @@ int main()
 	cout << "# Bitte geben Sie eine beliebige internationale Rufnummer ein und drücken Sie dann Enter.    #" << endl;
 	cout << "# Die eingegebene Rufnummer wird dann in ein nationales Rufnummernformat umgewandelt.        #" << endl;
 	cout << "# Beachten Sie bitte, dass nur korrekte internationale Rufnummern eingegeben werden dürfen.  #" << endl;
-	cout << "# Bei fehlerhafter Benutzung kann ein korrekter Umwandlungsprozess nicht gewähleistet werden.#" << endl;
+	cout << "# Bei fehlerhafter Nutzung kann ein korrekter Umwandlungsprozess nicht gewähleistet werden.  #" << endl;
 	cout << "##############################################################################################" << endl;
 
 	cout << "\nIhre internationale Rufnummer: ";
@@ -39,10 +37,6 @@ int main()
 	cout << "Nummer:     " << MyPhoneNumber->GetNumber() << endl;
 	cout << endl << MyPhoneNumber->GetLocalNumber();
 
-	string lol;
-	cout << endl << endl;
-	//cout << Formatter->GetCityNameFromGlobalNumber("0211");
-	cout << endl << endl;
 
 	delete MyPhoneNumber;
 	delete Formatter;

@@ -1,10 +1,14 @@
 #ifndef FORMATNUMBER_H
 #define FORMATNUMBER_H
 
-#define ICC InternationalCountryCode
-#define NCC NationalCountryCode
 
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <map>
+
+#include "ValidateNumber.h"
+#include "OnkzFileStream.h"
 #include "PhoneNumber.h"
 
 using namespace std;

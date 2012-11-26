@@ -27,7 +27,7 @@ using namespace std;
 class FormatNumberTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(FormatNumberTest);
-	CPPUNIT_TEST(TestPhoneNumberWithValidNumbers);
+	//CPPUNIT_TEST(TestPhoneNumberWithValidNumbers);
 	CPPUNIT_TEST(TestFormatGlobalNumberToLocalNumberWithValidNumber);
 	CPPUNIT_TEST(TestFormatGlobalNumberToLocalNumberWithUnvalidNumber);
 	CPPUNIT_TEST(TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber);
@@ -41,7 +41,7 @@ public:
 	void tearDown();
 
 protected:
-	void TestPhoneNumberWithValidNumbers();
+	//void TestPhoneNumberWithValidNumbers();
 	void TestFormatGlobalNumberToLocalNumberWithValidNumber();
 	void TestFormatGlobalNumberToLocalNumberWithUnvalidNumber();
 	void TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber();

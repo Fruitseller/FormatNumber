@@ -5,11 +5,12 @@
  *      Author: bronkalla
  */
 
-#include <iostream>
-#include <string>
 
 #ifndef VALIDATENUMBER_H_
 #define VALIDATENUMBER_H_
+
+#include <iostream>
+#include <string>
 
 using namespace std;
 

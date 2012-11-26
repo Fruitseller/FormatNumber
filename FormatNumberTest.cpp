@@ -17,7 +17,7 @@ void FormatNumberTest::tearDown()
 	delete Formatter;
 }
 
-
+/*
 void FormatNumberTest::TestPhoneNumberWithValidNumbers()
 {
 	TestPhoneNumber->SetGlobalNumber("00492111234567");
@@ -32,9 +32,8 @@ void FormatNumberTest::TestPhoneNumberWithValidNumbers()
 	CPPUNIT_ASSERT(TestPhoneNumber->GetNumber() == "1234567");
 	TestPhoneNumber->SetNumber("Kaarst");
 	CPPUNIT_ASSERT(TestPhoneNumber->GetNumber() == "Kaarst");
-
 }
-
+*/
 
 void FormatNumberTest::TestFormatGlobalNumberToLocalNumberWithValidNumber()
 {

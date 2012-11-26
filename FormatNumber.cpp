@@ -73,7 +73,7 @@ string FormatNumber::GetCityNameFromGlobalNumber(string input)
 	OnkzFileStream* onkzFileStream = new OnkzFileStream();
 
 
-	onkzMapList = onkzFileStream->GetMapFromStream();
+	onkzMapList = onkzFileStream->GetMapFromFileStream();
 	input = GetAreaCodeFromGlobalNumber(input);
 
 	cityName = onkzFileStream->FindCityNameFromMap(onkzMapList, input);
@@ -93,7 +93,6 @@ PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(input));
 		PhoneNumberObj->SetNumber(GetNumberFromGlobalNumber(input));
 		PhoneNumberObj->SetLocalNumber(GetAreaCodeFromGlobalNumber(input) + GetNumberFromGlobalNumber(input));
-
 		PhoneNumberObj->SetCityName(GetCityNameFromGlobalNumber(input));
 
 

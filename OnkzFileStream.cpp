@@ -12,7 +12,7 @@ using namespace std;
 
 
 
-map<string, string> OnkzFileStream::GetMapFromStream()
+map<string, string> OnkzFileStream::GetMapFromFileStream()
 {
 	string cityName;
 	string lineTmpString;
@@ -21,11 +21,12 @@ map<string, string> OnkzFileStream::GetMapFromStream()
 	map<string, string> onkzMapList;
 
 
-	ifstream fileStream("/home/bronkalla/workspace/FormatNumber/src/onkz.txt");
+	SetFileDirectory("/home/bronkalla/workspace/FormatNumber/src/onkz.txt");
+	ifstream fileStream(fileDirectory);
 
 	if (!fileStream)
 	{
-		cerr << "LOL alles kaputt";
+		throw eOnkzFileStream();
 	}
 
 
@@ -82,4 +83,15 @@ string OnkzFileStream::FindCityNameFromMap(map<string, string> onkzMapList, stri
 	 * cout << "02131: " << onkzMapList.find("02131")->second << endl;
 	 */
 	return cityName;
+}
+
+
+const char* OnkzFileStream::GetFileDirectory()
+{
+	return fileDirectory;
+}
+
+void OnkzFileStream::SetFileDirectory(const char* fileDirectory)
+{
+	this->fileDirectory = fileDirectory;
 }

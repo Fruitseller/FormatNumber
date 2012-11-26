@@ -14,14 +14,25 @@
 #include <vector>
 #include <map>
 
+#include "eOnkzFileStream.h"
+
 using namespace std;
 
+/**
+ * TODO
+ * alles static machen???
+ */
 class OnkzFileStream
 {
 
 public:
-	map<string, string> GetMapFromStream();
+	map<string, string> GetMapFromFileStream();
 	string FindCityNameFromMap(map<string, string> onkzMapList, string areaCode);
+	const char* GetFileDirectory();
+	void SetFileDirectory(const char* areaCode);
+
+private:
+	const char* fileDirectory;
 };
 
 

@@ -22,18 +22,22 @@ using namespace std;
 class ValidateNumberTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(ValidateNumberTest);
-	CPPUNIT_TEST(TestHasInputOnlyDigitWithDigitsAndLetters);
+	CPPUNIT_TEST(TestHasInputOnlyDigitWithDigits);
+	CPPUNIT_TEST_FAIL(TestHasInputOnlyDigitWithLetters);
 	CPPUNIT_TEST(TestIsInputNotEmptyAndDigitWithEmptyString);
-	CPPUNIT_TEST(TestHasInputValidLengthWithMultipleInputs);
+	CPPUNIT_TEST(TestHasInputValidLengthWithValidInputs);
+	CPPUNIT_TEST_FAIL(TestHasInputValidLengthWithUnvalidInputs);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
-	void setUp();
-	void tearDown();
+
+
 protected:
-	void TestHasInputOnlyDigitWithDigitsAndLetters();
+	void TestHasInputOnlyDigitWithDigits();
+	void TestHasInputOnlyDigitWithLetters();
 	void TestIsInputNotEmptyAndDigitWithEmptyString();
-	void TestHasInputValidLengthWithMultipleInputs();
+	void TestHasInputValidLengthWithValidInputs();
+	void TestHasInputValidLengthWithUnvalidInputs();
 };
 
 #endif /* VALIDATENUMBERTEST_H_ */

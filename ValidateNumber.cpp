@@ -41,9 +41,7 @@ bool ValidateNumber::ValidateInputOnCorrectness(string input)
 {
 	if (input[0] == '+')
 	{
-		FormatNumber* formatter = new FormatNumber();
-		input = formatter->ReplaceICCToNCC(input);
-		delete formatter;
+		input = FormatNumber::ReplaceICCToNCC(input);
 	}
 
 	if (IsInputNotEmpty(input) && HasInputOnlyDigits(input) && HasInputValidLength(input))

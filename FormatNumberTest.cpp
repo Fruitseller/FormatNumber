@@ -17,23 +17,6 @@ void FormatNumberTest::tearDown()
 	delete Formatter;
 }
 
-/*
-void FormatNumberTest::TestPhoneNumberWithValidNumbers()
-{
-	TestPhoneNumber->SetGlobalNumber("00492111234567");
-	CPPUNIT_ASSERT(TestPhoneNumber->GetGlobalNumber() == "00492111234567");
-	TestPhoneNumber->SetLocalNumber("02111234567");
-	CPPUNIT_ASSERT(TestPhoneNumber->GetLocalNumber() == "02111234567");
-	TestPhoneNumber->SetCountryCode("0049");
-	CPPUNIT_ASSERT(TestPhoneNumber->GetCountryCode() == "0049");
-	TestPhoneNumber->SetAreaCode("0211");
-	CPPUNIT_ASSERT(TestPhoneNumber->GetAreaCode() == "0211");
-	TestPhoneNumber->SetNumber("1234567");
-	CPPUNIT_ASSERT(TestPhoneNumber->GetNumber() == "1234567");
-	TestPhoneNumber->SetNumber("Kaarst");
-	CPPUNIT_ASSERT(TestPhoneNumber->GetNumber() == "Kaarst");
-}
-*/
 
 void FormatNumberTest::TestFormatGlobalNumberToLocalNumberWithValidNumber()
 {

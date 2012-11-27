@@ -24,7 +24,7 @@ public:
 	 *
 	 * @throw
 	 */
-	string ReplaceICCToNCC(string input);
+	static string ReplaceICCToNCC(string input);
 
 	// Returns four digit long string that is created from the given string
 	string GetCountryCodeFromGlobalNumber(string input);

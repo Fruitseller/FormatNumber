@@ -25,7 +25,7 @@ public:
 	// and return false when at least one of these methods fail
 	static bool ValidateInputOnCorrectness(string input);
 private:
-	static string returnValue;
+
 };
 
 

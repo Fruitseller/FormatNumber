@@ -20,7 +20,7 @@ string FormatNumber::GetCountryCodeFromGlobalNumber(string input)
 
 	if (input[0] == '+')
 	{
-		input = ReplaceICCToNCC(input);
+		input = FormatNumber::ReplaceICCToNCC(input);
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -70,13 +70,21 @@ string FormatNumber::GetCityNameFromGlobalNumber(string input)
 {
 	map<string, string> onkzMapList;
 	string cityName;
-	OnkzFileStream* onkzFileStream = new OnkzFileStream();
 
 
-	onkzMapList = onkzFileStream->GetMapFromFileStream();
+	try
+	{
+		onkzMapList = OnkzFileStream::GetMapFromFileDirectory("/home/bronkalla/workspace/FormatNumber/src/onkz.txt");
+	}
+	catch (const eOnkzFileStream& Exception)
+	{
+		cerr << "Datei konnte nicht gelesen werden" << endl;
+		terminate();
+	}
+
 	input = GetAreaCodeFromGlobalNumber(input);
 
-	cityName = onkzFileStream->FindCityNameFromMap(onkzMapList, input);
+	cityName = OnkzFileStream::FindCityNameFromMap(onkzMapList, input);
 
 	return cityName;
 }

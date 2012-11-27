@@ -21,20 +21,18 @@ using namespace std;
 class OnkzFileStreamTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(OnkzFileStreamTest);
-	CPPUNIT_TEST(TestGetMapFromFileStream);
+	CPPUNIT_TEST_EXCEPTION(TestGetMapFromFileDirectory, eOnkzFileStream);
 	CPPUNIT_TEST(TestFindCityNameFromMap);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
-	void setUp();
-	void tearDown();
 
 protected:
-	void TestGetMapFromFileStream();
+	void TestGetMapFromFileDirectory();
 	void TestFindCityNameFromMap();
 
 private:
-	OnkzFileStream* TestFileStream;
+
 };
 
 

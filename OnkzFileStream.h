@@ -18,21 +18,15 @@
 
 using namespace std;
 
-/**
- * TODO
- * alles static machen???
- */
 class OnkzFileStream
 {
 
 public:
-	map<string, string> GetMapFromFileStream();
-	string FindCityNameFromMap(map<string, string> onkzMapList, string areaCode);
-	const char* GetFileDirectory();
-	void SetFileDirectory(const char* areaCode);
+	static map<string, string> GetMapFromFileDirectory(const char* filedirectory);
+	static string FindCityNameFromMap(map<string, string> onkzMapList, string areaCode);
 
 private:
-	const char* fileDirectory;
+
 };
 
 

@@ -10,6 +10,18 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(ValidateNumberTest);
 
 
+void ValidateNumberTest::setUp()
+{
+	//Nothing
+}
+
+
+void ValidateNumberTest::tearDown()
+{
+	//Nothing
+}
+
+
 void ValidateNumberTest::TestHasInputOnlyDigitWithDigits()
 {
 	CPPUNIT_ASSERT(ValidateNumber::HasInputOnlyDigits("12345"));
@@ -32,11 +44,17 @@ void ValidateNumberTest::TestHasInputOnlyDigitWithLetters()
 }
 
 
-void ValidateNumberTest::TestIsInputNotEmptyAndDigitWithEmptyString()
+void ValidateNumberTest::TestIsInputNotEmptyWithNotEmptyString()
 {
-	CPPUNIT_ASSERT(!(ValidateNumber::IsInputNotEmpty("")));
 	CPPUNIT_ASSERT(ValidateNumber::IsInputNotEmpty("32456"));
 	CPPUNIT_ASSERT(ValidateNumber::IsInputNotEmpty("+"));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputNotEmpty("rtb"));
+}
+
+
+void ValidateNumberTest::TestIsInputNotEmptyWithEmptyString()
+{
+	CPPUNIT_ASSERT(ValidateNumber::IsInputNotEmpty(""));
 }
 
 

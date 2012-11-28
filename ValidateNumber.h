@@ -17,15 +17,39 @@ using namespace std;
 class ValidateNumber
 {
 public:
+	/**
+	 * Check if input is not empty
+	 *
+	 * @param String input e164 number
+	 * @return When input NOT empty --> TRUE
+	 */
 	static bool IsInputNotEmpty(string input);
-	static bool HasInputOnlyDigits(string input);
-	// Input must be between 13 and 15 characters long
-	static bool HasInputValidLength(string input);
-	// call bool IsInputNotEmpty(string), bool HasInputOnlyDigit(string) and bool HasInputValidLength(string)
-	// and return false when at least one of these methods fail
-	static bool ValidateInputOnCorrectness(string input);
-private:
 
+	/**
+	 * Check if input has only digits
+	 *
+	 * @param String input e164 number
+	 * @return When input has only digits --> TRUE
+	 */
+	static bool HasInputOnlyDigits(string input);
+
+
+	/**
+	 * Check of input is between 13 and 16 characters long
+	 *
+	 * @param String input e164 number
+	 * @return When input between 13 and 16 characters long --> TRUE
+	 */
+	static bool HasInputValidLength(string input);
+
+
+	/**
+	 * Called bool IsInputNotEmpty(string), bool HasInputOnlyDigit(string) and bool HasInputValidLength(string) and checked if all returned true.
+	 *
+	 * @param String input e164 number
+	 * @return When ALL called methods return true --> TRUE
+	 */
+	static bool ValidateInputOnCorrectness(string input);
 };
 
 

@@ -74,7 +74,8 @@ string FormatNumber::GetCityNameFromGlobalNumber(string input)
 
 	try
 	{
-		onkzMapList = OnkzFileStream::GetMapFromFileDirectory("/home/bronkalla/workspace/FormatNumber/src/onkz.txt");
+		cityName = OnkzFileStream::FindCityNameFromMap(OnkzFileStream::GetMapFromFileDirectory("/home/bronkalla/workspace/FormatNumber/src/onkz.txt")
+														, GetAreaCodeFromGlobalNumber(input));
 	}
 	catch (const eOnkzFileStream& Exception)
 	{
@@ -82,20 +83,17 @@ string FormatNumber::GetCityNameFromGlobalNumber(string input)
 		terminate();
 	}
 
-	input = GetAreaCodeFromGlobalNumber(input);
-
-	cityName = OnkzFileStream::FindCityNameFromMap(onkzMapList, input);
-
 	return cityName;
 }
 
 
 PhoneNumber* FormatNumber::FormatGlobalNumberToLocalNumber(string input)
 {
-	PhoneNumber* PhoneNumberObj = new PhoneNumber();
 
 	if (ValidateNumber::ValidateInputOnCorrectness(input))
 	{
+		PhoneNumber* PhoneNumberObj = new PhoneNumber();
+
 		PhoneNumberObj->SetGlobalNumber(input);
 		PhoneNumberObj->SetCountryCode(GetCountryCodeFromGlobalNumber(input));
 		PhoneNumberObj->SetAreaCode(GetAreaCodeFromGlobalNumber(input));

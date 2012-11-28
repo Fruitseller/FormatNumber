@@ -26,24 +26,51 @@ public:
 	 */
 	static string ReplaceICCToNCC(string input);
 
-	// Returns four digit long string that is created from the given string
+
+	/**
+	 * Cut first four digits of String and returns them
+	 *
+	 * @param String input e164 number
+	 * @return String four digits long
+	 */
 	string GetCountryCodeFromGlobalNumber(string input);
 
-	// Returns variable string which is depending on the length of the given string
+
+	/**
+	 * Created String is depending on the length of the given string
+	 *
+	 * @param String input e164 number
+	 * @return String with length based on input
+	 */
 	string GetAreaCodeFromGlobalNumber(string input);
 
-	// Returns seven digit long string that is created from the last seven digits of the given string
+
+	/**
+	 * Created String is based from the last seven digits of the given string
+	 *
+	 * @param String input e164 number
+	 * @return String 7 digits long
+	 */
 	string GetNumberFromGlobalNumber(string input);
+
 
 	/**
 	 * Get areaCode, compare with onkz.txt and return city name based on areaCode
 	 *
 	 * @param String input e164 number
 	 * @return String with city name based on areaCode
+	 *
+	 * @throw eOnkzFileStream
 	 */
 	string GetCityNameFromGlobalNumber(string input);
 
-	// Returns a PhoneNumber object created from the given international phonenumber string
+
+	/**
+	 * Created PhoneNumber Object is filled with Strings
+	 *
+	 * @param String input e164 number
+	 * @return PhoneNumber Object
+	 */
 	PhoneNumber* FormatGlobalNumberToLocalNumber(string input);
 
 };

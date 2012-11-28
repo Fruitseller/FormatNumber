@@ -21,12 +21,17 @@ int main()
 	cout << "\nIhre internationale Rufnummer: ";
 	cin >> inputString;
 
+
 	while (!(ValidateNumber::ValidateInputOnCorrectness(inputString)))
 	{
 		cout << "Falsche Eingabe! Bitte wiederholen.";
 		cout << "\nIhre internationale Rufnummer: ";
 		cin >> inputString;
 	}
+
+
+	//WEil ich faul bin
+	//inputString = "00492111234567";
 
 	MyPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber(inputString);
 

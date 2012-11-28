@@ -38,11 +38,38 @@ public:
 	void tearDown();
 
 protected:
+	/**
+	 * Called FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check Data of Obj for valid informations.
+	 */
 	void TestFormatGlobalNumberToLocalNumberWithValidNumber();
+
+
+	/**
+	 * Called FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check if Obj == NULL.
+	 */
 	void TestFormatGlobalNumberToLocalNumberWithUnvalidNumber();
+
+
+	/**
+	 * Called GetCountryCodeFromGlobalNumber(). Checked if returned result == expected result.
+	 */
 	void TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber();
+
+
+	/**
+	 * Called GetAreaCodeFromGlobalNumber(). Checked if returned result == expected result.
+	 */
 	void TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber();
+
+
+	/**
+	 * Called GetNumberFromGlobalNumber(). Checked if returned result == expected result.
+	 */
 	void TestGetNumberFromGlobalNumberWithValidGlobalNumber();
+
+	/**
+	 * Called GetCityNameFromGlobalNumber(). Checked if returned result == expected result.
+	 */
 	void TestGetCityNameFromGlobalNumber();
 
 private:

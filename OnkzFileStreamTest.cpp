@@ -7,19 +7,28 @@
 
 #include "OnkzFileStreamTest.h"
 
-
 CPPUNIT_TEST_SUITE_REGISTRATION(OnkzFileStreamTest);
 
 
-void OnkzFileStreamTest::TestGetMapFromFileDirectory()
+void OnkzFileStreamTest::setUp()
 {
-	map<string, string> onkzMapList;
-
-	CPPUNIT_ASSERT_THROW(onkzMapList = OnkzFileStream::GetMapFromFileDirectory("/home/bronkalla/workspace/FormatNumber/src/onkz.jpg")
-						, eOnkzFileStream);
+	//Nothing
 }
 
-void OnkzFileStreamTest::TestFindCityNameFromMap()
+
+void OnkzFileStreamTest::tearDown()
+{
+	//Nothing
+}
+
+
+void OnkzFileStreamTest::TestGetMapFromFileDirectoryWithFalsePath()
+{
+	CPPUNIT_ASSERT_THROW(OnkzFileStream::GetMapFromFileDirectory("/home/bronkalla/workspace/FormatNumber/src/FALSE"), eOnkzFileStream);
+}
+
+
+void OnkzFileStreamTest::TestFindCityNameFromMapWithValidResult()
 {
 	map<string, string> onkzMapList;
 
@@ -29,5 +38,4 @@ void OnkzFileStreamTest::TestFindCityNameFromMap()
 	//unvalid onkz
 	CPPUNIT_ASSERT(OnkzFileStream::FindCityNameFromMap(onkzMapList, "424242") == "Keine passende Stadt gefunden!");
 }
-
 

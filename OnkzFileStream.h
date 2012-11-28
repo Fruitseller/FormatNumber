@@ -22,7 +22,21 @@ class OnkzFileStream
 {
 
 public:
-	static map<string, string> GetMapFromFileDirectory(const char* filedirectory);
+	/**
+	 * First Create ifstream based on given fileDirectory. Iterate on Stream an write informations to std::Map
+	 *
+	 * @param const char* with directory where the file can be found
+	 * @return map<string, string> filled with map<onkzNumber, cityName> based on the onkz File
+	 */
+	static map<string, string> GetMapFromFileDirectory(const char* fileDirectory);
+
+
+	/**
+	 * Search given areaCode in the given map
+	 *
+	 * @param map<string, string> filled with onkz Data , string with areaCode of a number
+	 * @return string cityName based on found onkz in map. When nothing found then "Keine passende Stadt gefunden!"
+	 */
 	static string FindCityNameFromMap(map<string, string> onkzMapList, string areaCode);
 
 private:

@@ -37,6 +37,14 @@ void FormatNumberTest::TestFormatGlobalNumberToLocalNumberWithValidNumber()
 	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("004921311513029");
 	CPPUNIT_ASSERT(TestPhoneNumber->GetCityName().compare("Kaarst") == 0);
 
+	/**
+	 * TODO
+	 * TDD Style
+	 */
+	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("00493999912345678");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetLocalNumber().compare("03999912345678") == 0);
+	TestPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber("+493999912345678");
+	CPPUNIT_ASSERT(TestPhoneNumber->GetLocalNumber().compare("03999912345678") == 0);
 }
 
 
@@ -85,6 +93,13 @@ void FormatNumberTest::TestGetNumberFromGlobalNumberWithValidGlobalNumber()
 	CPPUNIT_ASSERT(correctNumber.compare("7818820") == 0);
 	correctNumber = Formatter->GetNumberFromGlobalNumber("+49307818820");
 	CPPUNIT_ASSERT(correctNumber.compare("7818820") == 0);
+
+	/**
+	 * TODO
+	 * TDD Style
+	 */
+	correctNumber = Formatter->GetNumberFromGlobalNumber("+493999912345678");
+	CPPUNIT_ASSERT(correctNumber.compare("12345678") == 0);
 }
 
 

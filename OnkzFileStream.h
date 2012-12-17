@@ -27,6 +27,8 @@ public:
 	 *
 	 * @param const char* with directory where the file can be found
 	 * @return map<string, string> filled with map<onkzNumber, cityName> based on the onkz File
+	 *
+	 * @throw eOnkzFileStream
 	 */
 	static map<string, string> GetMapFromFileDirectory(const char* fileDirectory);
 
@@ -39,8 +41,22 @@ public:
 	 */
 	static string FindCityNameFromMap(map<string, string> onkzMapList, string areaCode);
 
-private:
 
+	/**
+	 * Call GetMapFromFileDirectory() with path to countrycode.txt
+	 *
+	 * @return map<string, string> created from countrycodes.txt
+	 */
+	static map<string, string> LoadCCMap();
+
+
+	/**
+	 * Call GetMapFromFileDirectory() with path to *.txt based on input
+	 *
+	 * @param string countryCode
+	 * @return map<string, string> created from *.txt which is based on countryCode.
+	 */
+	static map<string, string> LoadACMapFromCC(string countryCode);
 };
 
 

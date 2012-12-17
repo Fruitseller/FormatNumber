@@ -75,3 +75,55 @@ void ValidateNumberTest::TestHasInputValidLengthWithUnvalidInputs()
 	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABCDEFG"));
 	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("+123456789ABCDEFG"));
 }
+
+
+void ValidateNumberTest::TestIsInputValidSymbolWithValidChar()
+{
+	CPPUNIT_ASSERT(ValidateNumber::IsInputValidSymbol('('));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputValidSymbol(')'));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputValidSymbol('-'));
+}
+
+
+void ValidateNumberTest::TestIsInputValidSymbolWithFalseChar()
+{
+	CPPUNIT_ASSERT(ValidateNumber::IsInputValidSymbol('a'));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputValidSymbol('A'));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputValidSymbol('1'));
+}
+
+
+void ValidateNumberTest::TestIsInputInMapWithPossibleResult()
+{
+	map<string, string> fileMap;
+
+	fileMap = OnkzFileStream::LoadCCMap();
+	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "49"));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "48"));
+}
+
+
+void ValidateNumberTest::TestIsInputInMapWithFalseResult()
+{
+	map<string, string> fileMap;
+
+	fileMap = OnkzFileStream::LoadCCMap();
+	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "42"));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "9000"));
+}
+
+
+void ValidateNumberTest::TestIsInputDigitWithDigit()
+{
+	CPPUNIT_ASSERT(ValidateNumber::IsInputDigit('0'));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputDigit('1'));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputDigit('2'));
+}
+
+
+void ValidateNumberTest::TestIsInputDigitWithNotDigit()
+{
+	CPPUNIT_ASSERT(ValidateNumber::IsInputDigit('a'));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputDigit('A'));
+	CPPUNIT_ASSERT(ValidateNumber::IsInputDigit('2'));
+}

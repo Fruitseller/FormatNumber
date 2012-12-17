@@ -38,16 +38,15 @@ map<string, string> OnkzFileStream::GetMapFromFileDirectory(const char* fileDire
 				if (lineTmpString.at(i) == ';')
 				{
 
-					tmp = "0" + tmp;
+					//tmp = "0" + tmp;
 					onkzMapList[tmp];
 					pos = lineTmpString.find(';');
 
 					onkzMapList[tmp] = lineTmpString.substr(pos + 1);
 
 					i = lineTmpString.length();
-
 					/**
-					 * Debug infos
+					 * Debug Infos
 					 * cout << "Map[" << tmp << "]: " << onkzMapList[tmp] << endl;
 					 */
 					tmp = "";
@@ -82,4 +81,21 @@ string OnkzFileStream::FindCityNameFromMap(map<string, string> onkzMapList, stri
 	 * cout << "02131: " << onkzMapList.find("02131")->second << endl;
 	 */
 	return cityName;
+}
+
+
+map<string, string> OnkzFileStream::LoadCCMap()
+{
+	const char* path;
+	path = "/home/bronkalla/workspace/FormatNumber/src/countrycodes.txt";
+	return GetMapFromFileDirectory(path);
+}
+
+
+map<string, string> OnkzFileStream::LoadACMapFromCC(string countryCode)
+{
+	const char* path;
+	countryCode = "/home/bronkalla/workspace/FormatNumber/src/areacode" + countryCode + ".txt";
+	path = countryCode.c_str();
+	return GetMapFromFileDirectory(path);
 }

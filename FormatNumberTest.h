@@ -18,6 +18,7 @@
 
 #include "FormatNumber.h"
 #include "PhoneNumber.h"
+#include "PrefixContainer.h"
 
 using namespace std;
 
@@ -31,6 +32,12 @@ class FormatNumberTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber);
 	CPPUNIT_TEST(TestGetNumberFromGlobalNumberWithValidGlobalNumber);
 	CPPUNIT_TEST(TestGetCityNameFromGlobalNumber);
+	CPPUNIT_TEST(TestNormalizePhoneNumber);
+	CPPUNIT_TEST(TestExtractPrefixFromMapWithValidInput);
+	CPPUNIT_TEST(TestExtractPrefixFromMapWithFalseInput);
+	CPPUNIT_TEST(TestParsePhoneNumberWithValidInput);
+	CPPUNIT_TEST(TestParsePhoneNumberWithFalseInput);
+	CPPUNIT_TEST(TestEraseNotDigitFromPhoneNumber);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -39,42 +46,80 @@ public:
 
 protected:
 	/**
-	 * Called FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check Data of Obj for valid informations.
+	 * Call FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check Data of Obj for valid informations.
 	 */
 	void TestFormatGlobalNumberToLocalNumberWithValidNumber();
 
 
 	/**
-	 * Called FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check if Obj == NULL.
+	 * Call FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check if Obj == NULL.
 	 */
 	void TestFormatGlobalNumberToLocalNumberWithUnvalidNumber();
 
 
 	/**
-	 * Called GetCountryCodeFromGlobalNumber(). Checked if returned result == expected result.
+	 * Call GetCountryCodeFromGlobalNumber(). Check if returned result == expected result.
 	 */
 	void TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber();
 
 
 	/**
-	 * Called GetAreaCodeFromGlobalNumber(). Checked if returned result == expected result.
+	 * Call GetAreaCodeFromGlobalNumber(). Check if returned result == expected result.
 	 */
 	void TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber();
 
 
 	/**
-	 * Called GetNumberFromGlobalNumber(). Checked if returned result == expected result.
+	 * Call GetNumberFromGlobalNumber(). Check if returned result == expected result.
 	 */
 	void TestGetNumberFromGlobalNumberWithValidGlobalNumber();
 
+
 	/**
-	 * Called GetCityNameFromGlobalNumber(). Checked if returned result == expected result.
+	 * Call GetCityNameFromGlobalNumber(). Check if returned result == expected result.
 	 */
 	void TestGetCityNameFromGlobalNumber();
+
+
+	/**
+	 * Call NormalizePhoneNumber(). Check if returned == expected result.
+	 */
+	void TestNormalizePhoneNumber();
+
+
+	/**
+	 * Call ExtractPrefixFromMap() with valid map. Check if Obj was created correctly.
+	 */
+	void TestExtractPrefixFromMapWithValidInput();
+
+
+	/**
+	 * Call ExtractPrefixFromMap with valid map. Check if method throw exception when Obj was not created correctly.
+	 */
+	void TestExtractPrefixFromMapWithFalseInput();
+
+
+	/**
+	 * Call ParsePhoneNumber(). Check if created Obj == expected Obj.
+	 */
+	void TestParsePhoneNumberWithValidInput();
+
+
+	/**
+	 * Call ParsePhoneNumber(). Check if method throw exception when Obj was not created correctly.
+	 */
+	void TestParsePhoneNumberWithFalseInput();
+
+
+	/**
+	 * Call EraseNotDigitFromPhoneNumber(). Check if returned result == expected result.
+	 */
+	void TestEraseNotDigitFromPhoneNumber();
 
 private:
 	PhoneNumber* TestPhoneNumber;
 	FormatNumber* Formatter;
+	PrefixContainer* TestPrefix;
 };
 
 

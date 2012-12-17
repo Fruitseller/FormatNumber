@@ -50,3 +50,25 @@ bool ValidateNumber::ValidateInputOnCorrectness(string input)
 	}
 	return false;
 }
+
+
+bool ValidateNumber::IsInputValidSymbol(char input)
+{
+	return (input == '(' || input == ')' || input == '-' /*|| input == ' '*/);
+}
+
+
+bool ValidateNumber::IsInputInMap(map<string, string> fileMap, string input)
+{
+	if (fileMap.find(input) != fileMap.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+
+bool ValidateNumber::IsInputDigit(char input)
+{
+	return isdigit(input);
+}

@@ -23,6 +23,9 @@ class OnkzFileStreamTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE(OnkzFileStreamTest);
 	CPPUNIT_TEST(TestGetMapFromFileDirectoryWithFalsePath);
 	CPPUNIT_TEST(TestFindCityNameFromMapWithValidResult);
+	CPPUNIT_TEST(TestLoadCCMap);
+	CPPUNIT_TEST(TestLoadACMapFromCCWithValidInput);
+	CPPUNIT_TEST(TestLoadACMapFromCCWithFalseInput);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -40,6 +43,24 @@ protected:
 	 * Called FindCityNameFromMap(). Checked if find string is same as expected.
 	 */
 	void TestFindCityNameFromMapWithValidResult();
+
+
+	/**
+	 * Call LoadCCMap(). Check for valid content in created map.
+	 */
+	void TestLoadCCMap();
+
+
+	/**
+	 * Call LoadACMapFromCC(). Check for valid content in created map which is based on valid input.
+	 */
+	void TestLoadACMapFromCCWithValidInput();
+
+
+	/**
+	 * Call LoadACMapFromCC(). Check if method throw exception when map can't be created.
+	 */
+	void TestLoadACMapFromCCWithFalseInput();
 };
 
 

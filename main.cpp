@@ -19,7 +19,7 @@ int main()
 	cout << "##############################################################################################" << endl;
 
 	cout << "\nIhre internationale Rufnummer: ";
-	cin >> inputString;
+	getline(cin, inputString);
 
 	/*
 	while (!(ValidateNumber::ValidateInputOnCorrectness(inputString)))
@@ -42,40 +42,36 @@ int main()
 	try
 	{
 		MyPhoneNumber = Formatter->ParsePhoneNumber(inputString);
-		/*
-		cout << endl;
-		cout << "Ländercode:            " << MyPhoneNumber->GetCountryCode() << endl;
-		cout << "Vorwahl:               " << MyPhoneNumber->GetAreaCode();
-		cout << "  Stadt: " << MyPhoneNumber->GetCityName() << endl;
-		cout << "Nummer:                " << MyPhoneNumber->GetNumber() << endl;
-		cout << "Internationale Rufnummer: " << MyPhoneNumber->GetGlobalNumber() << endl;
-		cout << "Nationale Rufnummer:      " << MyPhoneNumber->GetLocalNumber() << endl;
-		cout << endl;
-		*/
 	}
-	catch (const eOnkzFileStream& FileException)
+	catch (eFileStreamConverter& FileException)
 	{
-		cerr << "Datei konnte nicht gelesen werden." << endl;
 		cerr << "Bitte Programm neustarten!" << endl;
+		cerr << FileException.what();
 		terminate();
 	}
-	catch(const eFormatNumber& FormatException)
+	catch(eFormatNumber& FormatException)
 	{
-		cerr << "Rufnummer konnte nicht richtig formatiert werden." << endl;
 		cerr << "Bitte Programm neustarten!" << endl;
+		cerr << FormatException.what();
 		terminate();
 	}
 
-	MyPhoneNumber = NULL;
-	cout << endl;
-	cout <<
-	cout << "Ländercode:            " << MyPhoneNumber->GetCountryCode() << endl;
-	cout << "Vorwahl:               " << MyPhoneNumber->GetAreaCode();
-	cout << "  Stadt: " << MyPhoneNumber->GetCityName() << endl;
-	cout << "Nummer:                " << MyPhoneNumber->GetNumber() << endl;
-	cout << "Internationale Rufnummer: " << MyPhoneNumber->GetGlobalNumber() << endl;
-	cout << "Nationale Rufnummer:      " << MyPhoneNumber->GetLocalNumber() << endl;
-	cout << endl;
+	if (!ValidateNumber::HasInputValidLength(MyPhoneNumber))
+	{
+		cerr << "Bitte Programm neustarten!" << endl;
+		cerr << "Übergegebene Nummer hat falsche Länge." << endl;
+	}
+	else
+	{
+		cout << endl;
+		cout << "Ländercode:               " << MyPhoneNumber->GetCountryCode() << endl;
+		cout << "Vorwahl:                  " << MyPhoneNumber->GetAreaCode();
+		cout << "  Stadt: " << MyPhoneNumber->GetCityName() << endl;
+		cout << "Nummer:                   " << MyPhoneNumber->GetNumber() << endl;
+		cout << "Internationale Rufnummer: " << MyPhoneNumber->GetGlobalNumber() << endl;
+		cout << "Nationale Rufnummer:      " << MyPhoneNumber->GetLocalNumber() << endl;
+		cout << endl;
+	}
 
 	delete MyPhoneNumber;
 	delete Formatter;

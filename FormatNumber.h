@@ -8,7 +8,7 @@
 #include <map>
 
 #include "ValidateNumber.h"
-#include "OnkzFileStream.h"
+#include "FileStreamConverter.h"
 #include "PhoneNumber.h"
 #include "PrefixContainer.h"
 #include "eFormatNumber.h"

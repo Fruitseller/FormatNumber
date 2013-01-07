@@ -12,6 +12,9 @@
 #include <iostream>
 #include <string>
 
+#include "FormatNumber.h"
+#include "PhoneNumber.h"
+
 using namespace std;
 
 class ValidateNumber
@@ -40,7 +43,7 @@ public:
 	 * @param String input e164 number
 	 * @return When input between 13 and 16 characters long --> TRUE
 	 */
-	static bool HasInputValidLength(string input);
+	static bool HasInputValidLength(PhoneNumber* GivenNumber);
 
 
 	/**

@@ -142,12 +142,12 @@ void FormatNumberTest::TestExtractPrefixFromMapWithValidInput()
 {
 	map<string, string> fileMap;
 
-	fileMap = OnkzFileStream::LoadCCMap();
+	fileMap = FileStreamConverter::LoadCCMap();
 	TestPrefix = Formatter->ExtractPrefixFromMap(fileMap, "492116666666");
 	CPPUNIT_ASSERT(TestPrefix->GetPrefix().compare("49") == 0);
 	CPPUNIT_ASSERT(TestPrefix->GetRemainder().compare("2116666666") == 0);
 
-	fileMap = OnkzFileStream::LoadACMapFromCC("49");
+	fileMap = FileStreamConverter::LoadACMapFromCC("49");
 	TestPrefix = Formatter->ExtractPrefixFromMap(fileMap, "2116666666");
 	CPPUNIT_ASSERT(TestPrefix->GetPrefix().compare("211") == 0);
 	CPPUNIT_ASSERT(TestPrefix->GetRemainder().compare("6666666") == 0);
@@ -158,7 +158,7 @@ void FormatNumberTest::TestExtractPrefixFromMapWithFalseInput()
 {
 	map<string, string> fileMap;
 
-	fileMap = OnkzFileStream::LoadCCMap();
+	fileMap = FileStreamConverter::LoadCCMap();
 	CPPUNIT_ASSERT_THROW(Formatter->ExtractPrefixFromMap(fileMap, "0042211666666"), eFormatNumber);
 	CPPUNIT_ASSERT_THROW(Formatter->ExtractPrefixFromMap(fileMap, "0049deineMudda"), eFormatNumber);
 }
@@ -186,7 +186,6 @@ void FormatNumberTest::TestParsePhoneNumberWithValidInput()
 void FormatNumberTest::TestParsePhoneNumberWithFalseInput()
 {
 	CPPUNIT_ASSERT_THROW(TestPhoneNumber = Formatter->ParsePhoneNumber("0042211666666"), eFormatNumber);
-	//CPPUNIT_ASSERT_THROW(TestPhoneNumber = Formatter->ParsePhoneNumber("0049DeineMudda"), eFormatNumber);
 }
 
 

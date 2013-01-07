@@ -16,7 +16,9 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include "ValidateNumber.h"
-#include "OnkzFileStream.h"
+#include "FileStreamConverter.h"
+#include "FormatNumber.h"
+#include "PhoneNumber.h"
 
 using namespace std;
 
@@ -112,6 +114,10 @@ protected:
 	 * Call IsInputDigit(). Expect FALSE because input isn't a digit.
 	 */
 	void TestIsInputDigitWithNotDigit();
+
+private:
+	PhoneNumber* TestPhoneNumber;
+	FormatNumber* Formatter;
 };
 
 #endif /* VALIDATENUMBERTEST_H_ */

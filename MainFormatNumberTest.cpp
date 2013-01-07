@@ -9,7 +9,6 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TextTestRunner.h>
 
-#include "FormatNumberTest.h"
 
 int main(int argc, char* argv[])
 {

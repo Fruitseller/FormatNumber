@@ -16,7 +16,8 @@ using namespace std;
 
 class eFormatNumber : public exception
 {
-
+public:
+	virtual const char* what() throw();
 };
 
 

@@ -5,6 +5,11 @@
  *      Author: bronkalla
  */
 
+#include "eFormatNumber.h"
 
+const char* eFormatNumber::what() throw()
+{
+	return "Fehler beim formatieren.\n";
+}
 
 

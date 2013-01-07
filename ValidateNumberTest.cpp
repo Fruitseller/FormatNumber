@@ -12,13 +12,15 @@ CPPUNIT_TEST_SUITE_REGISTRATION(ValidateNumberTest);
 
 void ValidateNumberTest::setUp()
 {
-	//Nothing
+	TestPhoneNumber = new PhoneNumber();
+	Formatter = new FormatNumber();
 }
 
 
 void ValidateNumberTest::tearDown()
 {
-	//Nothing
+	delete TestPhoneNumber;
+	delete Formatter;
 }
 
 
@@ -60,20 +62,25 @@ void ValidateNumberTest::TestIsInputNotEmptyWithEmptyString()
 
 void ValidateNumberTest::TestHasInputValidLengthWithValidInputs()
 {
-	//Given numbers are between 13 and 16 characters long
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABC"));
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABCD"));
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABCDEF"));
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("+123456789ABCDEF"));
+	//Given numbers are under 16 characters long
+	TestPhoneNumber = Formatter->ParsePhoneNumber("0049211123456789");
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
+	TestPhoneNumber = Formatter->ParsePhoneNumber("00492111234567899");
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
+	TestPhoneNumber = Formatter->ParsePhoneNumber("+49211123456789");
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
+	TestPhoneNumber = Formatter->ParsePhoneNumber("+492111234567899");
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
 }
 
 
 void ValidateNumberTest::TestHasInputValidLengthWithUnvalidInputs()
 {
-	//Given numbers are too short and too long. Expect failure
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("012345"));
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("0123456789ABCDEFG"));
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength("+123456789ABCDEFG"));
+	//Given numbers are too long. Expect failure
+	TestPhoneNumber = Formatter->ParsePhoneNumber("004921112345678999");
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
+	TestPhoneNumber = Formatter->ParsePhoneNumber("+4921112345678999");
+	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
 }
 
 
@@ -97,7 +104,7 @@ void ValidateNumberTest::TestIsInputInMapWithPossibleResult()
 {
 	map<string, string> fileMap;
 
-	fileMap = OnkzFileStream::LoadCCMap();
+	fileMap = FileStreamConverter::LoadCCMap();
 	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "49"));
 	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "48"));
 }
@@ -107,7 +114,7 @@ void ValidateNumberTest::TestIsInputInMapWithFalseResult()
 {
 	map<string, string> fileMap;
 
-	fileMap = OnkzFileStream::LoadCCMap();
+	fileMap = FileStreamConverter::LoadCCMap();
 	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "42"));
 	CPPUNIT_ASSERT(ValidateNumber::IsInputInMap(fileMap, "9000"));
 }

@@ -17,8 +17,14 @@ class PrefixContainer
 {
 public:
 	string GetPrefix();
+
+
 	void SetPrefix(string prefix);
+
+
 	string GetRemainder();
+
+
 	void SetRemainder(string remainder);
 private:
 	string prefix;

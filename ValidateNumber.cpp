@@ -5,7 +5,6 @@
  *      Author: bronkalla
  */
 
-#include "FormatNumber.h"
 #include "ValidateNumber.h"
 
 using namespace std;
@@ -27,13 +26,13 @@ bool ValidateNumber::HasInputOnlyDigits(string input)
 }
 
 
-bool ValidateNumber::HasInputValidLength(string input)
+bool ValidateNumber::HasInputValidLength(PhoneNumber* GivenNumber)
 {
-	if (input.length() < 13 || input.length() > 16)
+	if ((GivenNumber->GetGlobalNumber().length() - 1) <= 15 && (GivenNumber->GetGlobalNumber().length() - 1) >= 8)
 	{
-		return false;
-	}
 		return true;
+	}
+	return false;
 }
 
 
@@ -44,7 +43,7 @@ bool ValidateNumber::ValidateInputOnCorrectness(string input)
 		input = FormatNumber::ReplaceICCToNCC(input);
 	}
 
-	if (IsInputNotEmpty(input) && HasInputOnlyDigits(input) && HasInputValidLength(input))
+	if (IsInputNotEmpty(input) && HasInputOnlyDigits(input) /*&& HasInputValidLength(input)*/)
 	{
 		return true;
 	}
@@ -54,7 +53,7 @@ bool ValidateNumber::ValidateInputOnCorrectness(string input)
 
 bool ValidateNumber::IsInputValidSymbol(char input)
 {
-	return (input == '(' || input == ')' || input == '-' /*|| input == ' '*/);
+	return (input == '(' || input == ')' || input == '-' || input == ' ');
 }
 
 

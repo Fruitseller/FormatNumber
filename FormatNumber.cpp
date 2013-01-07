@@ -18,7 +18,7 @@ string FormatNumber::GetCountryCodeFromGlobalNumber(string input)
 
 	if (input[0] == '+')
 	{
-		input = FormatNumber::ReplaceICCToNCC(input);
+		input = ReplaceICCToNCC(input);
 	}
 
 	for (int i = 0; i < 4; i++)
@@ -69,7 +69,7 @@ string FormatNumber::GetCityNameFromGlobalNumber(string input)
 	map<string, string> onkzMapList;
 	string cityName;
 
-	cityName = OnkzFileStream::FindCityNameFromMap(OnkzFileStream::GetMapFromFileDirectory("/home/bronkalla/workspace/FormatNumber/src/onkz.txt")
+	cityName = FileStreamConverter::FindCityNameFromMap(FileStreamConverter::GetMapFromFileDirectory("/home/bronkalla/workspace/FormatNumber/src/areacode49.txt")
 													, GetAreaCodeFromGlobalNumber(input));
 
 	return cityName;
@@ -123,10 +123,8 @@ PrefixContainer* FormatNumber::ExtractPrefixFromMap(map<string, string> fileMap,
 
 	for (unsigned int i = 0; i < number.length(); i++)
 	{
-		//cout << "ich gehe jetzt den string: " << number[i] << " zeichen für zeichen durch " << i << endl;
 		if (ValidateNumber::IsInputValidSymbol(number[i]))
 		{
-			//cout << "Habe ein gültiges Sonderzeichen gefunden!!!" << endl;
 			i++;
 			continue;
 		}
@@ -137,15 +135,11 @@ PrefixContainer* FormatNumber::ExtractPrefixFromMap(map<string, string> fileMap,
 		else
 		{
 			tmp += number[i];
-			//cout << "tmp: " << tmp << endl;
 			if (ValidateNumber::IsInputInMap(fileMap, tmp))
 			{
-				//cout << "bin drin" << endl;
 				PrefixString->SetPrefix(tmp);
 				pos = tmp.size();
 				PrefixString->SetRemainder(EraseNotDigitFromPhoneNumber(number.substr(pos)));
-				//cout << "Prefix: " << PrefixString->GetPrefix() << endl;
-				//cout << "Remainder: " << PrefixString->GetRemainder() << endl;
 				break;
 			}
 			else
@@ -156,8 +150,6 @@ PrefixContainer* FormatNumber::ExtractPrefixFromMap(map<string, string> fileMap,
 				}
 			}
 		}
-
-
 	}
 	return PrefixString;
 }
@@ -165,30 +157,29 @@ PrefixContainer* FormatNumber::ExtractPrefixFromMap(map<string, string> fileMap,
 
 PhoneNumber* FormatNumber::ParsePhoneNumber(string input)
 {
-	PhoneNumber* Number = new PhoneNumber();
-	Number->SetGlobalNumber(input);
+	PhoneNumber* MyPhoneNumber = new PhoneNumber();
 
 	string normalizedNumber = NormalizePhoneNumber(input);
 
-	map<string, string> CCMap = OnkzFileStream::LoadCCMap();
+	map<string, string> CCMap = FileStreamConverter::LoadCCMap();
 
 	PrefixContainer* CCString = new PrefixContainer();
 	CCString = ExtractPrefixFromMap(CCMap, normalizedNumber);
 
-	map<string, string> ACMap = OnkzFileStream::LoadACMapFromCC(CCString->GetPrefix());
+	map<string, string> ACMap = FileStreamConverter::LoadACMapFromCC(CCString->GetPrefix());
 	PrefixContainer* ACString = new PrefixContainer();
 	ACString = ExtractPrefixFromMap(ACMap, CCString->GetRemainder());
 
 
-	Number->SetCountryCode(CCString->GetPrefix());
-	Number->SetAreaCode(ACString->GetPrefix());
-	Number->SetCityName(OnkzFileStream::FindCityNameFromMap(ACMap, Number->GetAreaCode()));
-	Number->SetCityName(ACMap[ACString->GetPrefix()]);
-	Number->SetNumber(ACString->GetRemainder());
-	Number->SetGlobalNumber("+" + Number->GetCountryCode() + Number->GetAreaCode() + Number->GetNumber());
-	Number->SetLocalNumber("0" + Number->GetAreaCode() + Number->GetNumber());
+	MyPhoneNumber->SetCountryCode(CCString->GetPrefix());
+	MyPhoneNumber->SetAreaCode(ACString->GetPrefix());
+	MyPhoneNumber->SetCityName(FileStreamConverter::FindCityNameFromMap(ACMap, MyPhoneNumber->GetAreaCode()));
+	MyPhoneNumber->SetCityName(ACMap[ACString->GetPrefix()]);
+	MyPhoneNumber->SetNumber(ACString->GetRemainder());
+	MyPhoneNumber->SetGlobalNumber("+" + MyPhoneNumber->GetCountryCode() + MyPhoneNumber->GetAreaCode() + MyPhoneNumber->GetNumber());
+	MyPhoneNumber->SetLocalNumber("0" + MyPhoneNumber->GetAreaCode() + MyPhoneNumber->GetNumber());
 
-	return Number;
+	return MyPhoneNumber;
 }
 
 

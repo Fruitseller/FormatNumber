@@ -19,6 +19,7 @@
 #include "FileStreamConverter.h"
 #include "FormatNumber.h"
 #include "PhoneNumber.h"
+#include "eFalseNumberLength.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ class ValidateNumberTest : public CppUnit::TestFixture
 	CPPUNIT_TEST(TestIsInputNotEmptyWithNotEmptyString);
 	CPPUNIT_TEST_FAIL(TestIsInputNotEmptyWithEmptyString);
 	CPPUNIT_TEST(TestHasInputValidLengthWithValidInputs);
-	CPPUNIT_TEST_FAIL(TestHasInputValidLengthWithUnvalidInputs);
+	CPPUNIT_TEST(TestHasInputValidLengthWithUnvalidInputs);
 	CPPUNIT_TEST(TestIsInputValidSymbolWithValidChar);
 	CPPUNIT_TEST_FAIL(TestIsInputValidSymbolWithFalseChar);
 	CPPUNIT_TEST(TestIsInputInMapWithPossibleResult);

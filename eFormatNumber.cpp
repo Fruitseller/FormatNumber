@@ -7,9 +7,28 @@
 
 #include "eFormatNumber.h"
 
+
+eFormatNumber::eFormatNumber()
+{
+	msg = "Fehler beim formatieren";
+}
+
+
+eFormatNumber::eFormatNumber(string leftover)
+{
+	msg = "Folgende Nummer konnte nicht gefunden werden: " + leftover;
+}
+
+
+eFormatNumber::~eFormatNumber() throw()
+{
+
+}
+
+
 const char* eFormatNumber::what() throw()
 {
-	return "Fehler beim formatieren.\n";
+	return msg.c_str();
 }
 
 

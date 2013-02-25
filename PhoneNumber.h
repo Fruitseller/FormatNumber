@@ -17,22 +17,22 @@ class PhoneNumber
 {
 public:
 	string GetAreaCode();
-	void SetAreaCode(string areaCode);
+	void SetAreaCode(string);
 
 	string GetCountryCode();
-	void SetCountryCode(string countryCode);
+	void SetCountryCode(string);
 
 	string GetGlobalNumber();
-	void SetGlobalNumber(string globalNumber);
+	void SetGlobalNumber(string);
 
 	string GetLocalNumber();
-	void SetLocalNumber(string localNumber);
+	void SetLocalNumber(string);
 
 	string GetNumber();
-	void SetNumber(string number);
+	void SetNumber(string);
 
 	string GetCityName();
-	void SetCityName(string cityName);
+	void SetCityName(string);
 
 private:
 	string globalNumber;

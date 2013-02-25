@@ -19,13 +19,13 @@ public:
 	string GetPrefix();
 
 
-	void SetPrefix(string prefix);
+	void SetPrefix(string);
 
 
 	string GetRemainder();
 
 
-	void SetRemainder(string remainder);
+	void SetRemainder(string);
 private:
 	string prefix;
 	string remainder;

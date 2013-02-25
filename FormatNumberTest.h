@@ -26,12 +26,6 @@ using namespace std;
 class FormatNumberTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(FormatNumberTest);
-	CPPUNIT_TEST(TestFormatGlobalNumberToLocalNumberWithValidNumber);
-	CPPUNIT_TEST(TestFormatGlobalNumberToLocalNumberWithUnvalidNumber);
-	CPPUNIT_TEST(TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber);
-	CPPUNIT_TEST(TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber);
-	CPPUNIT_TEST(TestGetNumberFromGlobalNumberWithValidGlobalNumber);
-	CPPUNIT_TEST(TestGetCityNameFromGlobalNumber);
 	CPPUNIT_TEST(TestNormalizePhoneNumber);
 	CPPUNIT_TEST(TestExtractPrefixFromMapWithValidInput);
 	CPPUNIT_TEST(TestExtractPrefixFromMapWithFalseInput);
@@ -45,42 +39,6 @@ public:
 	void tearDown();
 
 protected:
-	/**
-	 * Call FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check Data of Obj for valid informations.
-	 */
-	void TestFormatGlobalNumberToLocalNumberWithValidNumber();
-
-
-	/**
-	 * Call FormatGlobalNumberToLocalNumber(). Write result in TestPhoneNumber and check if Obj == NULL.
-	 */
-	void TestFormatGlobalNumberToLocalNumberWithUnvalidNumber();
-
-
-	/**
-	 * Call GetCountryCodeFromGlobalNumber(). Check if returned result == expected result.
-	 */
-	void TestGetCountryCodeFromGlobalNumberWithValidGlobalNumber();
-
-
-	/**
-	 * Call GetAreaCodeFromGlobalNumber(). Check if returned result == expected result.
-	 */
-	void TestGetAreaCodeFromGlobalNumberWithValidGlobalNumber();
-
-
-	/**
-	 * Call GetNumberFromGlobalNumber(). Check if returned result == expected result.
-	 */
-	void TestGetNumberFromGlobalNumberWithValidGlobalNumber();
-
-
-	/**
-	 * Call GetCityNameFromGlobalNumber(). Check if returned result == expected result.
-	 */
-	void TestGetCityNameFromGlobalNumber();
-
-
 	/**
 	 * Call NormalizePhoneNumber(). Check if returned == expected result.
 	 */

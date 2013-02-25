@@ -30,7 +30,7 @@ public:
 	 *
 	 * @throw eOnkzFileStream
 	 */
-	static map<string, string> GetMapFromFileDirectory(const char* fileDirectory);
+	static map<string, string> GetMapFromFileDirectory(const char*);
 
 
 	/**
@@ -39,7 +39,7 @@ public:
 	 * @param map<string, string> filled with onkz Data , string with areaCode of a number
 	 * @return string cityName based on found onkz in map. When nothing found then "Keine passende Stadt gefunden!"
 	 */
-	static string FindCityNameFromMap(map<string, string> onkzMapList, string areaCode);
+	static string FindCityNameFromMap(map<string, string>, string);
 
 
 	/**
@@ -56,7 +56,7 @@ public:
 	 * @param string countryCode
 	 * @return map<string, string> created from *.txt which is based on countryCode.
 	 */
-	static map<string, string> LoadACMapFromCC(string countryCode);
+	static map<string, string> LoadACMapFromCC(string);
 };
 
 

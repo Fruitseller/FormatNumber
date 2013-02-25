@@ -1,80 +1,89 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <typeinfo>
+#include <mysql++.h>
 
 #include "FormatNumber.h"
+#include "ExceptionHandler.h"
+#include "FormatMenu.h"
+#include "TableView.h"
 
 
 string inputString;
+
 int main()
 {
+
 	FormatNumber* Formatter = new FormatNumber();
 	PhoneNumber* MyPhoneNumber = new PhoneNumber();
 
-	cout << "##############################################################################################" << endl;
-	cout << "# Bitte geben Sie eine beliebige internationale Rufnummer ein und drücken Sie dann Enter.    #" << endl;
-	cout << "# Die eingegebene Rufnummer wird dann in ein nationales Rufnummernformat umgewandelt.        #" << endl;
-	cout << "# Beachten Sie bitte, dass nur korrekte internationale Rufnummern eingegeben werden dürfen.  #" << endl;
-	cout << "# Bei fehlerhafter Nutzung kann ein korrekter Umwandlungsprozess nicht gewähleistet werden.  #" << endl;
-	cout << "##############################################################################################" << endl;
+	mysqlpp::Connection* ConnectionObj = new mysqlpp::Connection(true);
 
-	cout << "\nIhre internationale Rufnummer: ";
-	getline(cin, inputString);
+	TableView* DBTableView = new TableView();
 
-	/*
-	while (!(ValidateNumber::ValidateInputOnCorrectness(inputString)))
-	{
-		cout << "Falsche Eingabe! Bitte wiederholen.";
-		cout << "\nIhre internationale Rufnummer: ";
-		cin >> inputString;
-	}
+	while(true) {
 
+		FormatMenu::PrintMainMenu();
+		int choice;
+		cin >> choice;
 
-	MyPhoneNumber = Formatter->FormatGlobalNumberToLocalNumber(inputString);
+		switch (choice)
+		{
+			case 1:
+				FormatMenu::PrintManual();
 
-	cout << endl;
-	cout << "Ländercode: " << MyPhoneNumber->GetCountryCode() << endl;
-	cout << "Vorwahl:    " << MyPhoneNumber->GetAreaCode();
-	cout << "  Stadt: " << MyPhoneNumber->GetCityName() << endl;
-	cout << "Nummer:     " << MyPhoneNumber->GetNumber() << endl;
-	cout << endl << MyPhoneNumber->GetLocalNumber();
-	*/
-	try
-	{
-		MyPhoneNumber = Formatter->ParsePhoneNumber(inputString);
-	}
-	catch (eFileStreamConverter& FileException)
-	{
-		cerr << "Bitte Programm neustarten!" << endl;
-		cerr << FileException.what();
-		terminate();
-	}
-	catch(eFormatNumber& FormatException)
-	{
-		cerr << "Bitte Programm neustarten!" << endl;
-		cerr << FormatException.what();
-		terminate();
-	}
+				cout << "\nIhre internationale Rufnummer: ";
 
-	if (!ValidateNumber::HasInputValidLength(MyPhoneNumber))
-	{
-		cerr << "Bitte Programm neustarten!" << endl;
-		cerr << "Übergegebene Nummer hat falsche Länge." << endl;
-	}
-	else
-	{
-		cout << endl;
-		cout << "Ländercode:               " << MyPhoneNumber->GetCountryCode() << endl;
-		cout << "Vorwahl:                  " << MyPhoneNumber->GetAreaCode();
-		cout << "  Stadt: " << MyPhoneNumber->GetCityName() << endl;
-		cout << "Nummer:                   " << MyPhoneNumber->GetNumber() << endl;
-		cout << "Internationale Rufnummer: " << MyPhoneNumber->GetGlobalNumber() << endl;
-		cout << "Nationale Rufnummer:      " << MyPhoneNumber->GetLocalNumber() << endl;
-		cout << endl;
+				/**
+				 * ignore() is important because getline get all cin and not just this.
+				 */
+				cin.ignore();
+				getline(cin, inputString);
+
+				try
+				{
+					MyPhoneNumber = Formatter->ParsePhoneNumber(inputString);
+					ValidateNumber::HasInputValidLength(MyPhoneNumber);
+				}
+				catch (exception& exc)
+				{
+					cerr << "Bitte Programm neustarten!" << endl;
+					ExceptionHandler Handler(&exc);
+
+					delete MyPhoneNumber;
+					delete Formatter;
+
+					return 1;
+				}
+
+				FormatMenu::PrintResult(MyPhoneNumber);
+				break;
+
+			case 2:
+				if(ConnectionObj->connect("formatNumber", "localhost","sa", "peter01", 3306))
+				{
+					DBTableView->SetDbConnection(ConnectionObj);
+					DBTableView->DumpCityTable();
+					DBTableView->DumpAreaCodeTable();
+
+				}
+				else
+					cout << "Verbindung fehlgeschlagen\n";
+				break;
+
+			case 9:
+				delete MyPhoneNumber;
+				delete Formatter;
+				cout << "Programm wurde beendet.";
+				return 1;
+		}
 	}
 
 	delete MyPhoneNumber;
 	delete Formatter;
+	delete ConnectionObj;
+	delete DBTableView;
 
 	return 0;
 }

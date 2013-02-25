@@ -32,22 +32,7 @@ bool ValidateNumber::HasInputValidLength(PhoneNumber* GivenNumber)
 	{
 		return true;
 	}
-	return false;
-}
-
-
-bool ValidateNumber::ValidateInputOnCorrectness(string input)
-{
-	if (input[0] == '+')
-	{
-		input = FormatNumber::ReplaceICCToNCC(input);
-	}
-
-	if (IsInputNotEmpty(input) && HasInputOnlyDigits(input) /*&& HasInputValidLength(input)*/)
-	{
-		return true;
-	}
-	return false;
+	throw eFalseNumberLength();
 }
 
 

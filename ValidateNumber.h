@@ -14,6 +14,7 @@
 
 #include "FormatNumber.h"
 #include "PhoneNumber.h"
+#include "eFalseNumberLength.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ public:
 	 * @param String input e164 number
 	 * @return When input NOT empty --> TRUE
 	 */
-	static bool IsInputNotEmpty(string input);
+	static bool IsInputNotEmpty(string);
 
 	/**
 	 * Check if input has only digits
@@ -34,25 +35,17 @@ public:
 	 * @param String input e164 number
 	 * @return When input has only digits --> TRUE
 	 */
-	static bool HasInputOnlyDigits(string input);
+	static bool HasInputOnlyDigits(string);
 
 
 	/**
-	 * Check if input is between 13 and 16 characters long
+	 * Check if input is between 8 and 15 characters long
 	 *
+	 * @throw eFalseNumberLength
 	 * @param String input e164 number
-	 * @return When input between 13 and 16 characters long --> TRUE
+	 * @return When input between 8 and 15 characters long --> TRUE
 	 */
-	static bool HasInputValidLength(PhoneNumber* GivenNumber);
-
-
-	/**
-	 * Call bool IsInputNotEmpty(string), bool HasInputOnlyDigit(string) and bool HasInputValidLength(string) and checked if all returned true.
-	 *
-	 * @param String input e164 number
-	 * @return When ALL called methods return true --> TRUE
-	 */
-	static bool ValidateInputOnCorrectness(string input);
+	static bool HasInputValidLength(PhoneNumber*);
 
 
 	/**
@@ -61,7 +54,7 @@ public:
 	 * @param char input
 	 * @return When input one of character --> TRUE
 	 */
-	static bool IsInputValidSymbol(char input);
+	static bool IsInputValidSymbol(char);
 
 
 	/**
@@ -70,7 +63,7 @@ public:
 	 * @param map<string, string> fileMap filled with CC or AC, string input
 	 * @return When input in prefix of map --> TRUE
 	 */
-	static bool IsInputInMap(map<string, string> fileMap, string input);
+	static bool IsInputInMap(map<string, string>, string);
 
 
 	/**
@@ -79,7 +72,7 @@ public:
 	 * @param char input
 	 * @return When input = digit --> TRUE
 	 */
-	static bool IsInputDigit(char input);
+	static bool IsInputDigit(char);
 };
 
 

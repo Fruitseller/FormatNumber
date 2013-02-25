@@ -12,12 +12,28 @@
 #include <exception>
 #include <string>
 
+
 using namespace std;
 
 class eFormatNumber : public exception
 {
 public:
+	eFormatNumber();
+
+
+	/**
+	 * Write message + string in global string msg.
+	 */
+	eFormatNumber(string);
+
+
+	~eFormatNumber() throw();
+
+
 	virtual const char* what() throw();
+
+private:
+	string msg;
 };
 
 

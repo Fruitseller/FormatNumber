@@ -76,11 +76,11 @@ void ValidateNumberTest::TestHasInputValidLengthWithValidInputs()
 
 void ValidateNumberTest::TestHasInputValidLengthWithUnvalidInputs()
 {
-	//Given numbers are too long. Expect failure
+	//Given numbers are too long. Expect exception
 	TestPhoneNumber = Formatter->ParsePhoneNumber("004921112345678999");
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
+	CPPUNIT_ASSERT_THROW(ValidateNumber::HasInputValidLength(TestPhoneNumber), eFalseNumberLength);
 	TestPhoneNumber = Formatter->ParsePhoneNumber("+4921112345678999");
-	CPPUNIT_ASSERT(ValidateNumber::HasInputValidLength(TestPhoneNumber));
+	CPPUNIT_ASSERT_THROW(ValidateNumber::HasInputValidLength(TestPhoneNumber), eFalseNumberLength);
 }
 
 

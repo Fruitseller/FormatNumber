@@ -16,6 +16,7 @@
 #include "eFormatNumber.h"
 #include "eFileStreamConverter.h"
 #include "eFalseNumberLength.h"
+#include "eDatabaseInsertion.h"
 
 using namespace std;
 
@@ -55,6 +56,9 @@ public:
 	 * @return eFalseNumberLength class
 	 */
 	eFalseNumberLength* ConvertExceptionToeFalseNumberLength(exception*);
+
+
+	eDatabaseInsertion* ConvertExceptionToeDatabaseInsertion(exception*);
 
 };
 

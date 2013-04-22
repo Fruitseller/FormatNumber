@@ -27,7 +27,7 @@ public:
 	string NormalizePhoneNumber(string);
 
 	/**
-	 * Searched prefix in map is based on given string
+	 * Search prefix in map which is based on given string
 	 *
 	 * @param map<string, string> fileMap filled with CC or AC, string number
 	 * @return PrefixContainer* with prefix=founded number and remainder=leftover

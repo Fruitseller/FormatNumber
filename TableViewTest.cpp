@@ -12,40 +12,54 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TableViewTest);
 void TableViewTest::setUp()
 {
 	TableViewObj = new TableView();
-	ConnectionTestObj = new mysqlpp::Connection(true);
+	ConnectionObj = new mysqlpp::Connection(true);
 }
 
 
 void TableViewTest::tearDown()
 {
 	delete TableViewObj;
-	delete ConnectionTestObj;
+	delete ConnectionObj;
 }
 
 
-void TableViewTest::TestPrintTableWithFalseParameter()
+void TableViewTest::TestGetDbConnection()
 {
-	/**
-	if (ConnectionTestObj->connect("test", "localhost","root", "", 3306))
-	{
 
+	if (ConnectionObj->connect("test", "localhost","root", "", 3306))
+	{
+		TableViewObj->SetDbConnection(ConnectionObj);
+
+		/**
+		 * Debug informations
+		 */
+//		cout << endl << "Pointer address of ConnectionObj:                   " << ConnectionObj << endl;
+//		cout << "Pointer address of TableViewObj->GetDbConnection(): " << TableViewObj->GetDbConnection() << endl;
+//		cout << "ConnectionObj ping result: " << ConnectionObj->ping() << endl;
+//		cout << "ConnectionObj connected: " << ConnectionObj->connected() << endl;
+//		cout << "TableViewObj->GetDbConnection() ping result: " << TableViewObj->GetDbConnection()->ping() << endl;
+//		cout << "TableViewObj->GetDbConnection() connected: " << TableViewObj->GetDbConnection()->connected() << endl;
+
+		CPPUNIT_ASSERT(TableViewObj->GetDbConnection() == ConnectionObj);
 	}
 	else
 	{
-
+		CPPUNIT_ASSERT(false);
 	}
-	*/
+}
 
-	ConnectionTestObj->connect("bla", "no", "user", "pw", 0000);
 
-	TableViewObj->SetDbConnection(ConnectionTestObj);
-	TableViewObj->DumpCityTable();
-	//CPPUNIT_ASSERT_MESSAGE("Failed to get item list: MySQL server has gone away", TableViewObj->DumpCityTable());
+void TableViewTest::TestSetDbConnectionAndIfConnectionWord()
+{
 
-	//ConnectionTestObj->connect("bla", "no", "user", "pw", 0000);
-	//CPPUNIT_ASSERT_THROW(ConnectionTestObj->connect("bla", "no", "user", "pw", 0000), mysqlpp::Exception);
-	//CPPUNIT_ASSERT_THROW(DBMenu->PrintTable(ConnectionTestObj, "whatever"), mysqlpp::Exception);
-	//CPPUNIT_ASSERT_MESSAGE("Failed to get item list: MySQL server has gone away", DBMenu->PrintTable(ConnectionTestObj, "whatever"));
-	//CPPUNIT_ASSERT_THROW(ConnectionTestObj->connect("bla", "no", "user", "pw", 0000), mysqlpp::ConnectionFailed);
+	if (ConnectionObj->connect("test", "localhost","root", "", 3306))
+	{
+		TableViewObj->SetDbConnection(ConnectionObj);
 
+		CPPUNIT_ASSERT(TableViewObj->GetDbConnection()->connected() == true);
+	}
+	else
+	{
+		CPPUNIT_ASSERT(false);
+	}
 }

@@ -30,6 +30,11 @@ ExceptionHandler::ExceptionHandler(exception* Error)
 		eFalseNumberLength* FalseNumberLengthException = ConvertExceptionToeFalseNumberLength(Error);
 		cerr << FalseNumberLengthException->what();
 	}
+	else if (typeid(*Error) == typeid(eDatabaseInsertion))
+	{
+		eDatabaseInsertion* DatabaseInsertionException = ConvertExceptionToeDatabaseInsertion(Error);
+		cerr << DatabaseInsertionException->what();
+	}
 
 	Error->what();
 
@@ -57,4 +62,12 @@ eFalseNumberLength* ExceptionHandler::ConvertExceptionToeFalseNumberLength(excep
 	eFalseNumberLength* FalseNumberLengthException;
 	FalseNumberLengthException = dynamic_cast<eFalseNumberLength*>(e);
 	return FalseNumberLengthException;
+}
+
+
+eDatabaseInsertion* ExceptionHandler::ConvertExceptionToeDatabaseInsertion(exception* e)
+{
+	eDatabaseInsertion* DatabaseInsertionException;
+	DatabaseInsertionException = dynamic_cast<eDatabaseInsertion*>(e);
+	return DatabaseInsertionException;
 }

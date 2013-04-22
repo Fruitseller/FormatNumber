@@ -8,38 +8,68 @@
 #include "TableView.h"
 
 
-void TableView::SetDbConnection(mysqlpp::Connection* Connection)
+TableView::~TableView()
 {
-	dbConnection = Connection;
+	if (this->OwnConnection) {
+		delete this->dbConnection;
+	}
 }
 
-void TableView::DumpCityTable()
+
+TableView::TableView()
+{
+	OwnConnection = true;
+	this->dbConnection = new mysqlpp::Connection(true);
+}
+
+
+void TableView::SetDbConnection(mysqlpp::Connection* Connection)
+{
+	if (this->OwnConnection)
+	{
+		delete this->dbConnection ;
+		this->OwnConnection = false;
+	}
+
+	this->dbConnection = Connection;
+}
+
+
+mysqlpp::Connection* TableView::GetDbConnection()
+{
+	return this->dbConnection;
+}
+
+
+mysqlpp::StoreQueryResult TableView::DumpCityTable()
 {
 	string statement = "SELECT city_id, city FROM city";
 
-	mysqlpp::Query query = dbConnection->query(statement);
+	mysqlpp::Query query = this->dbConnection->query(statement);
 
 	if (mysqlpp::StoreQueryResult result = query.store())
 	{
-		DumpResultsForTableCity(result);
+		return result;
 	}
 	else
-		cerr << "Failed to get item list: " << query.error() << endl;
+		throw eDatabaseInsertion();
 }
 
-void TableView::DumpAreaCodeTable()
+
+mysqlpp::StoreQueryResult TableView::DumpAreaCodeTable()
 {
 	string statement = "SELECT area_code_id, area_code FROM area_code";
 
-	mysqlpp::Query query = dbConnection->query(statement);
+	mysqlpp::Query query = this->dbConnection->query(statement);
 
 	if (mysqlpp::StoreQueryResult result = query.store())
 	{
-		DumpResultsForTableAreaCode(result);
+		return result;
 	}
 	else
-		cerr << "Failed to get item list: " << query.error() << endl;
+		throw eDatabaseInsertion();
 }
+
 
 void TableView::DumpResultsForTableCity(mysqlpp::StoreQueryResult result)
 {
@@ -57,6 +87,7 @@ void TableView::DumpResultsForTableCity(mysqlpp::StoreQueryResult result)
 			}
 }
 
+
 void TableView::DumpResultsForTableAreaCode(mysqlpp::StoreQueryResult result)
 {
 	cout << "\nSchema:\n";
@@ -73,3 +104,50 @@ void TableView::DumpResultsForTableAreaCode(mysqlpp::StoreQueryResult result)
 			}
 }
 
+
+mysqlpp::StoreQueryResult TableView::DumpArea()
+{
+	string statement = "SELECT area_id, area_code_id, city_id FROM area";
+
+	mysqlpp::Query query = this->dbConnection->query(statement);
+
+	if (mysqlpp::StoreQueryResult result = query.store())
+	{
+		return result;
+	}
+	else
+		throw eDatabaseInsertion();
+
+}
+
+
+mysqlpp::StoreQueryResult TableView::DumpCountryCode()
+{
+	string statement = "SELECT country_code, country_name FROM country_code";
+
+	mysqlpp::Query query = this->dbConnection->query(statement);
+
+	if (mysqlpp::StoreQueryResult result = query.store())
+	{
+		return result;
+	}
+	else
+		throw eDatabaseInsertion();
+
+}
+
+
+mysqlpp::StoreQueryResult TableView::DumpAreaCountryCode()
+{
+	string statement = "SELECT area_id, country_code FROM country_code";
+
+	mysqlpp::Query query = this->dbConnection->query(statement);
+
+	if (mysqlpp::StoreQueryResult result = query.store())
+	{
+		return result;
+	}
+	else
+		throw eDatabaseInsertion();
+
+}
